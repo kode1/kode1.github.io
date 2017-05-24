@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nettavisa</title>
+    <style>
+        * {
+            margin: 0;
+        }
+        body {
+            background-color: #e9e9e9;
+            font-family: sans-serif;
+        }
+        main {
+            max-width: 970px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: 10px;
+        }
+        main a {
+            background-color: white;
+        }
+
+        .kol-1 { grid-column: span 1;}
+        .kol-2 { grid-column: span 2;}
+        .kol-3 { grid-column: span 3;}
+        .kol-4 { grid-column: span 4;}
+        .kol-5 { grid-column: span 5;}
+        .kol-6 { grid-column: span 6;}
+        .kol-7 { grid-column: span 7;}
+        .kol-8 { grid-column: span 8;}
+        .kol-9 { grid-column: span 9;}
+        .kol-10 { grid-column: span 10;}
+        .kol-11 { grid-column: span 11;}
+        .kol-12 { grid-column: span 12;}
+
+    </style>
+</head>
+<body>
+
+    <main>
+        <a class="kol-12">Test</a>
+
+        <a class="kol-6">Test</a>
+        <a class="kol-3">Test</a>
+        <a class="kol-3">Test</a>
+
+    </main>
+
+</body>
+</html>

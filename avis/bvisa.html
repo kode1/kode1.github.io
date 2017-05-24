@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Avisa</title>
+    <style>
+        * {
+            margin: 0;
+        }
+        body {
+            background-color: #e9e9e9;
+            font-family: sans-serif;
+        }
+        main {
+            max-width: 970px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: 10px;
+        }
+        a, div {
+            background-color: white;
+        }
+        main  img, main  video {
+            width: 100%;
+        }
+        main  h1, main  p {
+            padding: 10px;
+        }
+        .kol-1 {grid-column: span 1}
+        .kol-2 {grid-column: span 2}
+        .kol-3 {grid-column: span 3}
+        .kol-4 {grid-column: span 4}
+        .kol-5 {grid-column: span 5}
+        .kol-6 {grid-column: span 6}
+        .kol-7 {grid-column: span 7}
+        .kol-8 {grid-column: span 8}
+        .kol-9 {grid-column: span 9}
+        .kol-10 {grid-column: span 10}
+        .kol-11 {grid-column: span 11}
+        .kol-12 {grid-column: span 12}
+
+    </style>
+</head>
+<body>
+    <main>
+        <a class="kol-12">
+            <img src="bilder/helseminister.jpeg">
+            <h1>Skandale i helse-Norge</h1>
+            <p>IT-systemene fullstendig usikret!</p>
+        </a>
+
+        <div class="kol-6">
+            <video src="eksamen.mpeg4" poster="bilder/Eksamen.jpeg" controls></video>
+            <a>
+                <h1>Urettferdig ordning til eksamen</h1>
+                <p>Forskjellige hjelpemidler på skolene</p>
+            </a>
+        </div>
+        <a class="kol-3">
+            <img src="bilder/Luksus.jpeg">
+            <h1>Et liv i luksus</h1>
+            <p>Stian lever ut proffdrømmen i Japan</p>
+        </a>
+        <a class="kol-3">
+            <img src="bilder/messi.jpeg">
+            <h1>Messi må i fengsel</h1>
+            <p>Dømt til 21 måneders betinget fengsel for svindel</p>
+        </a>
+
+    </main>
+</body>
+</html>

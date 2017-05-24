@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nettavisa</title>
+    <style>
+        * {
+            margin: 0; /* Fjerner marg på alle elementer */
+        }
+        body {
+            background-color: #e9e9e9;
+            font-family: sans-serif;
+        }
+        main {
+            max-width: 970px;
+            margin: auto; /* Midstiller main */
+
+            /* Setter opp rutenettet */
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: 10px;
+
+        }
+        h1, p {
+            padding: 10px;
+        }
+        main a, main div { /* Gjelder for både a og div */
+            background-color: white;
+            color: #333;
+            text-decoration: none;
+        }
+
+        img, video { /* Både img og video */
+            width: 100%;
+        }
+
+        /* Definerer alle typer ruter */
+        .col-1 { grid-column: span 1; }
+        .col-2 { grid-column: span 2; }
+        .col-3 { grid-column: span 3; }
+        .col-4 { grid-column: span 4; }
+        .col-5 { grid-column: span 5; }
+        .col-6 { grid-column: span 6; }
+        .col-7 { grid-column: span 7; }
+        .col-8 { grid-column: span 8; }
+        .col-9 { grid-column: span 9; }
+        .col-10 { grid-column: span 10; }
+        .col-11 { grid-column: span 11; }
+        .col-12 { grid-column: span 12; }
+
+        nav {
+            background-color: black;
+            display: grid;
+            grid-template-columns: auto repeat(4, 1fr);
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        nav a {
+            padding-left: 30px;
+            padding-right: 30px;
+            color: white;
+        }
+        nav .logo {
+            background-color: orangered;
+            font-weight: 800;
+            font-size: 2rem;
+            padding: 10px;
+        }
+
+        @media (max-width: 640px) {
+            .col-1 { grid-column: span 12; }
+            .col-2 { grid-column: span 12; }
+            .col-3 { grid-column: span 12; }
+            .col-4 { grid-column: span 12; }
+            .col-5 { grid-column: span 12; }
+            .col-6 { grid-column: span 12; }
+            .col-7 { grid-column: span 12; }
+            .col-8 { grid-column: span 12; }
+            .col-9 { grid-column: span 12; }
+            .col-10 { grid-column: span 12; }
+            .col-11 { grid-column: span 12; }
+            .col-12 { grid-column: span 12; }
+        }
+
+        /* Legger alle nyhetene under hverandre når nettleseren er under 640px */
+        @media (max-width: 640px) {
+            .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+                grid-column: span 12;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="logo">AVISA</a>
+        <a href="nyheter/">Nyheter</a>
+        <a href="sport/">Sport</a>
+        <a href="kultur/">Kultur</a>
+        <a href="distrikt/">Distrikt</a>
+    </nav>
+</header>
+<main>
+    <a class="col-12" href="nyheter/it-skandale.html">
+        <img src="bilder/helseminister.jpeg">
+        <h1>Kan ikke love at skandalene er over</h1>
+    </a>
+
+    <div class="col-6">
+        <video src="video/presidents.mp4" controls poster="bilder/Eksamen.jpeg"></video>
+        <a href="nyheter/eksamen.html">
+            <h1>Har samme eksamen - med helt forskjellige hjelpemidler</h1>
+            <p>Ulik praksis irriterer lærere og elever</p>
+        </a>
+    </div>
+    <a class="col-3" href="nyheter/luksusliv.html">
+        <img src="bilder/Luksus.jpeg">
+        <h1>Sinnsykt luksusliv</h1>
+        <p>Sarpsborg-profil i Kina</p>
+    </a>
+    <a class="col-3" href="sport/skattefusk.html">
+        <img src="bilder/messi.jpeg">
+        <h1>Messi dømt til 21 måneders betinget fengsel</h1>
+    </a>
+
+    <a class="col-6" href="tull.html">
+        <img src="bilder/tatoo.jpeg">
+        <h1>Tusenvis tatoverer bier på kroppen etter terror</h1>
+
+    </a>
+    <a class="col-6" href="tull.html">
+        <img src="bilder/sol.jpeg">
+        <h1>Se hvor du kan du nyte sola i pinsen</h1>
+    </a>
+
+</main>
+
+</body>
+</html>
