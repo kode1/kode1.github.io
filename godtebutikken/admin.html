@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registrere godteri</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.min.css">
+    <style>
+        body {
+            max-width: 970px;
+            margin: auto;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <h1>Register godteri</h1>
+    <form id="skjema">
+
+
+        <label for="inpBilde">Last opp ett bilde</label>
+        <input type="file" id="inpBilde" required>
+
+        <label for="selType">Velg type godteri</label>
+        <select id="selType" required>
+
+            <option value="">Velg godteritype</option>
+            <option value="surt">Surt godteri</option>
+            <option value="salt">Salt godteri</option>
+
+        </select>
+
+        <label for="inpProdusent">Produsent</label>
+        <input type="text" id="inpProdusent" required placeholder="navn på produsent">
+
+        <label for="inpProdukt">Produkt</label>
+        <input type="text" id="inpProdukt" required placeholder="navn på produkt">
+
+        <label for="inpPris">Pris</label>
+        <input type="number" id="inpPris" required placeholder="pris i hele kroner">
+
+        <button class="button alert" type="submit">Register nytt godteri</button>
+
+    </form>
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCZCFVA86D3YcqNnt1wGBVecty9hzMOLa8",
+            authDomain: "webshop-2052a.firebaseapp.com",
+            databaseURL: "https://webshop-2052a.firebaseio.com",
+            projectId: "webshop-2052a",
+            storageBucket: "webshop-2052a.appspot.com",
+            messagingSenderId: "818570980309"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+
+    <script>
+
+        let database = firebase.database();
+        let storage = firebase.storage();
+
+        // Referanse til HTML-elementer
+        let skjema = document.getElementById("skjema");
+        let selType = document.getElementById("selType");
+        let inpProdusent = document.getElementById("inpProdusent");
+        let inpProdukt = document.getElementById("inpProdukt");
+        let inpPris = document.getElementById("inpPris");
+        let inpBilde = document.getElementById("inpBilde");
+
+
+        function lagreSnop(bildeSnap) {
+
+
+            let mappe = database.ref("godtebutikken/" + selType.value);
+
+            let snop = {
+                "produsent" : inpProdusent.value,
+                "produkt" : inpProdukt.value,
+                "pris" : inpPris.value,
+                "bilde" : bildeSnap.downloadURL
+            };
+
+            mappe.push(snop);
+
+            inpProdukt.value = "";
+            inpProdusent.value = "";
+            inpPris.value = "";
+            inpBilde.value = "";
+
+        }
+
+        function lastOppBilde(evt) {
+            evt.preventDefault();
+            let bilde = storage.ref("godtebilder/" + new Date());
+            bilde.put(inpBilde.files[0])
+                .then(lagreSnop);
+        }
+
+        skjema.onsubmit = lastOppBilde;
+
+
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
