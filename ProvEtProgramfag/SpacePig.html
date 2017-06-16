@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Spacepig</title>
+    <style>
+        body {
+            overflow: hidden;
+            background-color: orangered;
+        }
+        main {
+            display: grid;
+            grid-template-columns: 1fr 2fr 3fr 4fr 5fr 6fr 7fr 8fr 9fr 10fr 9fr 8fr 7fr 6fr 5fr 4fr 3fr 2fr 1fr;
+        }
+        img {
+            width: 100%;
+            transition: 1s;
+        }
+    </style>
+</head>
+<body>
+
+    <main id="main">
+
+    </main>
+
+    <script>
+
+        const main = document.getElementById("main");
+
+        for(let i=0; i<150; i++) {
+
+            let gris = document.createElement("img");
+            gris.src = "astropig.png";
+            main.appendChild(gris);
+
+        }
+
+        let alleGrisene = document.querySelectorAll("img");
+
+        document.onmousemove = function(evt) {
+            for(const gris of alleGrisene) {
+
+                console.log(gris.offsetLeft);
+
+                let dx = evt.clientX - gris.offsetLeft;
+                let dy = evt.clientY - gris.offsetTop;
+                let angle = Math.atan2(dy,dx)*180.0/Math.PI;
+
+                //let size = dx * dy;
+
+                let size = Math.random() * 1;
+
+                //console.log(angle);
+
+                gris.style.transform = `scale(${size})`;
+
+                gris.style.transform = `rotate(${angle}deg)`;
+
+            }
+        };
+
+
+
+    </script>
+</body>
+</html>

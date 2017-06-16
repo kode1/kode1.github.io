@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Colors</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        main {
+            display: grid;
+            grid-template-columns: repeat(50, 1fr);
+            grid-auto-rows: 10px;
+        }
+        main > div {
+            border: 1px solid green;
+
+        }
+    </style>
+</head>
+<body>
+
+    <main></main>
+
+    <script>
+
+        const main = document.querySelector("main");
+
+        for(let i=0; i<3500; i++) {
+            let div = document.createElement("div");
+            main.appendChild(div);
+        }
+
+
+        function changeColor() {
+
+            let ruter = document.querySelectorAll("main > div");
+            for(let rute of ruter) {
+                rute.style.backgroundColor = `hsl(${Math.random()*40}, 100%, 50%)`;
+                rute.style.transform = `scale(${Math.random()*2})`;
+            }
+        }
+
+        changeColor();
+
+        document.onclick = changeColor;
+
+
+    </script>
+</body>
+</html>

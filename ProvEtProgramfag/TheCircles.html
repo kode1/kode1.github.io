@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Circles</title>
+    <style>
+        @keyframes fade {
+
+            from {
+                width: 0;
+                height: 0;
+                opacity: 0.8;
+            }
+            to {
+                width: 200px;
+                height: 200px;
+                opacity: 0;
+            }
+        }
+        body {
+            margin: 0;
+            background-color: black;
+        }
+        div {
+            width: 100px;
+            height: 100px;
+            border: 1px solid cyan;
+            border-radius: 50%;
+            position: absolute;
+            animation: fade 3s forwards;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <script>
+
+        function lagSirkel(evt) {
+            let div = document.createElement("div");
+            document.body.appendChild(div);
+            div.style.left = evt.clientX + "px";
+            div.style.top = evt.clientY + "px";
+        }
+
+        document.onmousemove = lagSirkel;
+
+    </script>
+
+</body>
+</html>

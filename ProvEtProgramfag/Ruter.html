@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ruter</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        main {
+            display: grid;
+            grid-template-columns: repeat(40, 1fr);
+            grid-auto-rows: 15px;
+        }
+        main > div {
+            background-color: rgba(120, 0, 0, 0.1);
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+
+    <main></main>
+
+    <script>
+        const main = document.querySelector("main");
+
+        for(i=0; i<2500; i++) {
+            let div = document.createElement("div");
+            main.appendChild(div);
+        }
+
+        function skurr() {
+            let ruter = document.querySelectorAll("main > div");
+
+            for(let rute of ruter) {
+
+                rute.style.transform = `scale(${Math.random() * 8}) rotate(${Math.random() * 360}deg)`;
+                rute.style.borderColor = `hsl(${Math.random()*120}, 100%, 50%)`;
+
+
+            }
+
+        }
+
+
+        setInterval(skurr, 100);
+
+
+    </script>
+</body>
+</html>

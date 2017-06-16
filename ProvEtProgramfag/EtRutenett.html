@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rutenett</title>
+    <style>
+
+        body {
+            display: grid;
+            grid-template-columns: repeat(40, 1fr);
+            grid-auto-rows: 10px;
+        }
+        div {
+            border: 1px solid orange;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- HTML-kode -->
+
+    <script>
+
+          for(let i=0; i<2500; i++) {
+
+              let rute = document.createElement("div");
+              document.body.appendChild(rute);
+
+          }
+
+          function strekk() {
+
+              let rutene = document.querySelectorAll("div");
+              for(let rute of rutene) {
+                  rute.style.transform = `scale(${Math.random()*2})`;
+                  rute.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
+              }
+
+          }
+
+          setInterval(strekk, 100);
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rutene igjen</title>
+    <style>
+        body {
+            background-color: darkblue;
+            margin: 0;
+        }
+        main {
+            display: grid;
+            grid-template-columns: repeat(100, 1fr);
+            grid-auto-rows: 10px;
+        }
+        main > div {
+            border: 1px solid white;
+        }
+    </style>
+</head>
+<body>
+
+    <main></main>
+
+    <script>
+
+        let main = document.querySelector("main");
+
+        for(let i=0; i<20000; i++) {
+            let div = document.createElement("div");
+            main.appendChild(div);
+        }
+
+        function strange(evt) {
+            let ruter = document.querySelectorAll("main > div");
+
+            for(let rute of ruter){
+                let dx = rute.offsetLeft - evt.clientX;
+                let dy = rute.offsetTop - evt.clientY;
+
+                rute.style.transform = `scale(2)`;
+
+            }
+
+        }
+
+        document.onclick = strange;
+
+
+    </script>
+</body>
+</html>

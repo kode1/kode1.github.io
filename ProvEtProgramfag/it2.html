@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IT2</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        svg {
+            background-color: darkslateblue;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #theColor {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <svg width="800" height="600" id="paper">
+
+    </svg>
+
+    <input type="color" id="theColor">
+
+    <script>
+        let paper = document.getElementById("paper");
+
+
+
+        paper.onclick = (evt) => {
+            paper.innerHTML += `
+                <circle cx="${evt.clientX}"
+                        cy="${evt.clientY}"
+                        r="50"
+                        fill="${theColor.value}" />
+            `;
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dette er en nettside</title>
+</head>
+<body>
+
+
+    <script>
+function angiVerdi(i) {
+    console.log(i);
+}
+
+for(let indeks=0; indeks<10; indeks++) {
+    let btn = document.createElement("button");
+    btn.innerHTML = indeks;
+    btn.onclick = function() {
+        angiVerdi(indeks);
+    };
+    document.body.appendChild(btn);
+}
+    </script>
+</body>
+</html>

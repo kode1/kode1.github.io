@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sirkler</title>
+    <style>
+
+        @keyframes fade {
+            from {
+                opacity: 1;
+                width: 2px;
+                height: 2px;
+            }
+            to {
+                opacity: 0;
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        body {
+            background-color: black;
+        }
+
+        div {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 1px solid cyan;
+            border-radius: 50%;
+            animation: fade 5s forwards;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div></div>
+
+    <script>
+
+        document.onmousemove = function(evt) {
+            let sirkel = document.createElement("div");
+            sirkel.style.left = evt.clientX + "px";
+            sirkel.style.top = evt.clientY + "px";
+            document.body.appendChild(sirkel);
+        }
+
+    </script>
+</body>
+</html>
