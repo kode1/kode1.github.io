@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Handlekurv</title>
+</head>
+<body>
+
+    <h1>Velg varer</h1>
+    <div>
+        <input type="checkbox" id="cbEgg" data-pris="190" data-beskrivelse="Et snes egg">
+        <label for="cbEgg">Et snes egg - 190kr</label>
+    </div>
+
+    <div>
+        <input type="checkbox" id="cbTomater" data-pris="40" data-beskrivelse="En kg tomater">
+        <label for="cbTomater">Et kg tomater - 40kr</label>
+    </div>
+
+    <div>
+        <input type="checkbox" id="cbBrus" data-pris="30" data-beskrivelse="En stor brus">
+        <label for="cbBrus">En stor brus - 30kr</label>
+    </div>
+
+    <article>
+        <h1>Varer i handlekurven</h1>
+        <ul id="handlekurv"></ul>
+        <p id="visSum">Handlekurven er tom</p>
+    </article>
+
+    <script>
+
+        var handlekurv = document.getElementById("handlekurv");
+        var visSum = document.getElementById("visSum");
+
+        var alleValg = document.querySelectorAll("input[type=checkbox]");
+
+        function oppdaterHandlekurv() {
+            console.log("TEST");
+            var sum = 0;
+            handlekurv.innerHTML = "";
+
+            // Finner alle sjekkbokser som er valgt
+            var valgteVarer = document.querySelectorAll("input[type=checkbox]:checked");
+
+            // Går gjennom alle varene
+            for(vare of valgteVarer) {
+                handlekurv.innerHTML += "<li>" + vare.getAttribute("data-beskrivelse") + "</li>";
+                sum += Number( vare.getAttribute("data-pris") );
+            }
+
+            visSum.innerHTML = "Pris for alle varene: <b>" + sum + "</b>";
+
+        }
+
+        for(valg of alleValg) {
+            valg.onclick = oppdaterHandlekurv;
+        }
+
+
+
+
+    </script>
+
+
+</body>
+</html>
