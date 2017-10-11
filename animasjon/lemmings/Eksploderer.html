@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Eksploderer</title>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        @keyframes lemming16 {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: -512px 0;
+            }
+        }
+
+        @keyframes lemming8 {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: -256px 0;
+            }
+        }
+
+        .lemming {
+            width: 32px;
+            height: 32px;
+        }
+
+        .walker_r {
+            background-image: url("lemming_walk_r.gif");
+            animation: lemming8 1s steps(8) infinite;
+        }
+        
+        .explode {
+            background-image: url("lemming_explode_s.gif");
+            animation: lemming16 1s steps(16);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lemming explode"></div>
+
+    <div class="lemming walker_r"></div>
+
+
+    <script>
+        var rightwalkers = document.querySelectorAll(".walker_r");
+        var xpos = 0;
+
+        setInterval(function() {
+            xpos += 4;
+            for(var rw of rightwalkers) {
+                rw.style.transform = "translateX(" + xpos + "px)";
+            }
+        }, 1000/8);
+
+
+
+    </script>
+
+</body>
+</html>

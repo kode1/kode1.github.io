@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Walk the Lemming</title>
+    <style>
+        @keyframes walk {
+            to {
+                background-position: -256px 0;
+            }
+        }
+        @keyframes goright {
+            to {
+                transform: translateX(64px);
+            }
+        }
+        body {
+            background-color: black;
+        }
+        #lemming {
+            background-image: url("lemming_walk_r.gif");
+            width: 32px;
+            height: 32px;
+            animation-name: walk, goright;
+            animation-duration: 1s, 2s;
+            animation-timing-function: steps(8), steps(16);
+            animation-iteration-count: infinite;
+            animation-direction: forwards;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div id="lemming"></div>
+
+
+</body>
+</html>
