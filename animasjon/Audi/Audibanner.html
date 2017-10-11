@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reklame</title>
+    <style>
+        #banner {
+            overflow: hidden;
+            position: relative;
+            background-image: url(bgr.png);
+            width: 747px;
+            height: 410px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #bilen {
+            position: absolute;
+            background-image: url(bilen.png);
+            width: 531px;
+            height: 172px;
+            left: -600px;
+            top: 180px;
+        }
+        #bakhjul {
+            position: absolute;
+            background-image: url(bakhjul.png);
+            width: 58px;
+            height: 58px;
+            left: 78px;
+            top: 100px;
+        }
+        #forhjul {
+            position: absolute;
+            background-image: url(forhjul.png);
+            width: 60px;
+            height: 60px;
+            right: 60px;
+            top: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="banner">
+        <div id="bilen">
+            <div id="forhjul"></div>
+            <div id="bakhjul"></div>
+        </div>
+    </div>
+
+    <script>
+        var bilen = document.getElementById("bilen");
+        var forhjul = document.getElementById("forhjul");
+        var bakhjul = document.getElementById("bakhjul");
+
+        var tall = [2, 5, 4, 5, 34];
+
+        var bilCSS = [
+            {left: "-600px", easing: "ease-in-out", offset: 0},
+            {left: "60px" , easing: "ease-in-out", offset: 0.1},
+            {left: "60px" , easing: "ease-in-out", offset: 0.9},
+            {left: "800px" , easing: "ease-in-out", offset: 1}
+        ];
+
+        var hjulCSS = [
+            {transform: "rotate(0deg)", easing: "ease-in-out"},
+            {transform: "rotate(720deg)", easing: "ease-in-out"},
+            {transform: "rotate(720deg)", easing: "ease-in-out"},
+            {transform: "rotate(1440deg)", easing: "ease-in-out"}
+        ];
+
+        var timing = {
+            duration: 6000,
+            iterations: Infinity,
+            direction: "alternate"
+        };
+
+        bilen.animate(bilCSS, timing);
+        forhjul.animate(hjulCSS, timing);
+        bakhjul.animate(hjulCSS, timing);
+
+        var animasjoner = document.timeline.getAnimations();
+        document.onclick = function() {
+            for(var animasjon of animasjoner){
+                //animasjon.reverse();
+                animasjon.playbackRate = 3;
+            }
+        }
+
+
+    </script>
+
+</body>
+
+</html>

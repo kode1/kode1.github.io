@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Audi Sportback</title>
+    <style>
+
+        @keyframes drive {
+            0% {
+                left: -580px;
+            }
+            40% {
+                left: 100px;
+            }
+            60% {
+                left: 100px;
+            }
+            100% {
+                left: 800px;
+            }
+        }
+
+        @keyframes snurr {
+            0% {
+                transform: rotate(0);
+            }
+            40% {
+                transform: rotate(2turn);
+            }
+            60% {
+                transform: rotate(2turn);
+            }
+            100% {
+                transform: rotate(4turn);
+            }
+        }
+
+        #banner {
+            background-image: url("bgr.png");
+            width: 747px;
+            height: 410px;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+        }
+        #bilen {
+            background-image: url("bilen.png");
+            width: 531px;
+            height: 172px;
+            position: absolute;
+            left: -580px;
+            bottom: 50px;
+            animation: drive 8s infinite alternate;
+        }
+        #bakhjul {
+            position: absolute;
+            background-image: url("bakhjul.png");
+            width: 58px;
+            height: 58px;
+            bottom: 12px;
+            left: 78px;
+            animation: snurr 8s infinite alternate;
+        }
+        #forhjul {
+            position: absolute;
+            background-image: url("forhjul.png");
+            width: 60px;
+            height: 60px;
+            left: 412px;
+            bottom: 10px;
+            animation: snurr 8s infinite alternate;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="banner">
+        <div id="bilen">
+            <div id="bakhjul"></div>
+            <div id="forhjul"></div>
+        </div>
+    </div>
+
+</body>
+</html>
