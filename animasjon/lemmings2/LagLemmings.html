@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        @keyframes walkRight {
+            to {
+                background-position: -256px 0;
+            }
+        }
+        @keyframes karsten {
+            from {
+                left: 0;
+            }
+            to {
+                left: 128px;
+            }
+        }
+        @keyframes karsten_faller {
+            from {
+                top: 168px;
+                left: 128px;
+            }
+            to {
+                top: 336px;
+                left: 128px;
+            }
+
+        }
+        #game {
+            position: relative;
+            width: 600px;
+            height: 450px;
+            background-color: black;
+            border: 15px solid red;
+            margin: 30px auto;
+            overflow: hidden;
+        }
+        #gulv {
+            width: 128px;
+            height: 15px;
+            background-color: saddlebrown;
+            position: absolute;
+            top: 200px;
+            left: 0;
+        }
+        #game > * {
+            position: absolute;
+        }
+        .walkright {
+            background-image: url("lemming_walk_r.gif");
+            width: 32px;
+            height: 32px;
+            animation: walkRight 1s steps(8) infinite;
+        }
+        #button {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: blue;
+            width: 100px;
+            height: 30px;
+            margin: 10px;
+            border: solid 5px red;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        #button p {
+            color: white;
+        }
+        .karsten {
+            width: 32px;
+            height: 32px;
+            top: 168px;
+            left: -100px;
+            animation: karsten 4s steps(32);
+        }
+        .paraply_right {
+            background-image: url("lemming_float_r.gif");
+            width: 32px;
+            height: 32px;
+            animation: walkRight 1s steps(8) infinite;
+        }
+        .karsten_faller {
+            width: 32px;
+            height: 32px;
+            top: 168px;
+            left: -100px;
+            animation: karsten_faller 4s steps(32);
+            animation-delay: 4s;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game">
+    <div class="karsten">
+        <div class="walkright"></div>
+    </div>
+    <div class="karsten_faller">
+        <div class="paraply_right"></div>
+    </div>
+    <div id="gulv"></div>
+    <div id="button" onclick="myFunction1()"><p>TRYKK HER</p></div>
+</div>
+
+<script>
+
+    var game = document.getElementById("game");
+
+    function myFunction1() {
+
+        var karsten = document.createElement("div");
+        karsten.className = "karsten";
+        var walkright = document.createElement("div");
+        walkright.className = "walkright";
+
+        karsten.appendChild(walkright);
+        game.appendChild(karsten);
+
+        var karsten_faller = document.createElement("div");
+        karsten_faller.className = "karsten_faller";
+        var paraply_right = document.createElement("div");
+        paraply_right.className = "paraply_right";
+
+        karsten_faller.appendChild(paraply_right);
+        game.appendChild(karsten_faller);
+
+
+    }
+
+</script>
+
+</body>
+</html>
