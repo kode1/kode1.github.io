@@ -4,29 +4,173 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tap It</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.css">
     <style>
+        body {
+            display: grid;
+            grid-template-rows: auto 1fr;
+            height: 100vh;
+        }
         #info {
             text-align: center;
         }
+        #btnReset {
+            opacity: 0;
+        }
+        #klikkflate {
+            background-color: blueviolet;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #finger_info {
+            text-align: center;
+            color: white;
+        }
+        #animasjon {
+            height: 60px;
+            background-color: #e9e9e9;
+        }
+        #animasjon > div {
+            background-color: peru;
+            width: 100%;
+            height: 100%;
+        }
+        #tider {
+            height: 60px;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+        }
+        #tider > div {
+            border: 1px solid gray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        #tider > div::before {
+            position: absolute;
+            left: 5px;
+            top: -15px;
+            background-color: blueviolet;
+            color: white;
+            padding: 3px;
+        }
+        #vl::before {  content:"VLI"; }
+        #vr::before {  content:"VR"; }
+        #vll::before {  content:"VLA"; }
+        #vp::before {  content:"VP"; }
+        #vt::before {  content:"VT"; }
+        #ht::before {  content:"HT"; }
+        #hp::before {  content:"HP"; }
+        #hll::before {  content:"HLA"; }
+        #hr::before {  content:"HR"; }
+        #hl::before {  content:"HL"; }
     </style>
 </head>
 <body>
 
-    <h1 id="info">0</h1>
+    <header>
+        <h1 id="info">0</h1>
+        <button id="btnReset" class="button expanded">KLIKK HER FOR Å GJØRE KLAR FOR NESTE FINGER</button>
+        <div id="animasjon">
+            <div id="stolpe"></div>
+        </div>
+        <div id="tider">
+            <div id="vl">0</div>
+            <div id="vr">0</div>
+            <div id="vll">0</div>
+            <div id="vp">0</div>
+            <div id="vt">0</div>
+            <div id="ht">0</div>
+            <div id="hp">0</div>
+            <div id="hll">0</div>
+            <div id="hr">0</div>
+            <div id="hl">0</div>
+        </div>
+    </header>
+    <main id="klikkflate">
+        <h1 id="finger_info">Begynn å tappe her med venstre lillefinger</h1>
+    </main>
 
     <script>
 
         var info = document.getElementById("info");
+        var btnReset = document.getElementById("btnReset");
+        var klikkflate = document.getElementById("klikkflate");
+        var stolpe = document.getElementById("stolpe");
+        var finger_info = document.getElementById("finger_info");
+
+
+
         var ant = 0;
+        var runde = 1;
+        var tidenFlyr = false;
 
-        function klikk() {
+        var fingre = [
+            { navn: "Venstre lillefinger" },
+            { navn: "Venstre ringfinger" },
+            { navn: "Venstre langfinger" },
+            { navn: "Venstre pekefinger" },
+            { navn: "Venstre tommel" },
+            { navn: "Høyre tommel" },
+            { navn: "Høyre pekefinger" },
+            { navn: "Høyre langfinger" },
+            { navn: "Høyre ringfinger" },
+            { navn: "Høyre lillefinger" }
+        ];
 
-            ant++;
-            info.innerHTML = ant;
 
+        function reset() {
+            ant = 0;
+            info.innerHTML = 0;
+            finger_info.style.display = "block";
+            finger_info.innerHTML = "Begynn å tappe med " + fingre[runde-1].navn;
         }
 
-        document.ontouchend = klikk;
+        function stoppKlokka() {
+
+            btnReset.style.opacity = 1;
+            tidenFlyr = false;
+            var finger = fingre[runde-1];
+            finger.antall = ant;
+
+            var div = document.querySelector(`#tider>div:nth-child(${runde})`);
+            div.innerHTML = ant;
+            div.animate([{transform: "scale(1.3)"}, {transform: "scale(1)"}], 200);
+            runde++;
+            //alert("Tiden er ute");
+        }
+
+        function startKlokka(){
+            finger_info.style.display = "none";
+            tidenFlyr = true;
+            stolpe.animate([
+                {width: "100%"},
+                {width: 0}
+            ], {
+                duration: 10000
+            });
+            setTimeout(stoppKlokka, 10000);
+        }
+
+        function klikk() {
+            if(ant === 0) {
+
+                startKlokka();
+                //ant++;
+                info.innerHTML = ant;
+            }
+            if(tidenFlyr) {
+                ant++;
+                info.innerHTML = ant;
+            }
+        }
+
+        klikkflate.ontouchend = klikk;
+        //klikkflate.onclick = klikk;
+        btnReset.onclick = reset;
 
 
     </script>
