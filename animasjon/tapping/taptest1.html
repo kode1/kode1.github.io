@@ -11,7 +11,7 @@
             grid-template-rows: auto 1fr;
             height: 100vh;
         }
-        div {
+        div, button {
             user-select: none;
         }
         #info {
@@ -172,9 +172,7 @@
 
         function klikk() {
             if(ant === 0) {
-
                 startKlokka();
-                //ant++;
                 info.innerHTML = ant;
             }
             if(tidenFlyr) {
@@ -189,7 +187,6 @@
             klikkflate.onclick = klikk;
 
         btnReset.onclick = reset;
-
 
     </script>
 
