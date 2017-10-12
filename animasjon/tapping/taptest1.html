@@ -121,6 +121,11 @@
             { navn: "Høyre lillefinger" }
         ];
 
+        function is_touch_device() {
+            return 'ontouchstart' in window        // works on most browsers
+                || navigator.maxTouchPoints;       // works on IE10/11 and Surface
+        };
+
 
         function reset() {
             ant = 0;
@@ -168,8 +173,11 @@
             }
         }
 
-        klikkflate.ontouchend = klikk;
-        //klikkflate.onclick = klikk;
+        if(is_touch_device())
+            klikkflate.ontouchend = klikk;
+        else
+            klikkflate.onclick = klikk;
+
         btnReset.onclick = reset;
 
 
