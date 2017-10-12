@@ -110,11 +110,10 @@
         var stolpe = document.getElementById("stolpe");
         var finger_info = document.getElementById("finger_info");
 
-
-
         var ant = 0;
         var runde = 1;
         var tidenFlyr = false;
+        btnReset.disabled = true;
 
         var fingre = [
             { navn: "Venstre lillefinger", antall: 0 },
@@ -165,6 +164,18 @@
                 tbody.innerHTML += "<tr><td>" + finger.navn + "</td><td>" + finger.antall + "</td></tr>";
 
             }
+
+            var fingersnitt = document.createElement("div");
+            fingersnitt.className = "callout success";
+
+            var vs = (sumVenstre / 5).toFixed(2);
+            var hs = (sumHoyre / 5).toFixed(2);
+
+            fingersnitt.innerHTML = "<p>Snitt for venstre hånd: " + "<b>" + vs + "</b>" + "</p>";
+            fingersnitt.innerHTML += "<p>Snitt for høyre hånd: " + "<b>" + hs + "</b>" + "</p>";
+
+            klikkflate.appendChild(fingersnitt);
+
             tabell.appendChild(thead);
             tabell.appendChild(tbody);
 
@@ -175,6 +186,7 @@
 
 
         function reset() {
+            btnReset.disabled = true;
             ant = 0;
             klikkflate.style.opacity = 1;
             info.innerHTML = 0;
@@ -184,6 +196,7 @@
 
         function stoppKlokka() {
 
+            btnReset.disabled = false;
             klikkflate.style.opacity = 0;
             btnReset.style.opacity = 1;
             tidenFlyr = false;
@@ -195,7 +208,7 @@
             div.innerHTML = ant;
             div.animate([{transform: "scale(1.3)"}, {transform: "scale(1)"}], 200);
 
-            if(runde >= 2) {
+            if(runde >= 10) {
                 oppsummering();
             } else {
                 runde++;
