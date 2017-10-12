@@ -9,9 +9,9 @@
         body {
             display: grid;
             grid-template-rows: auto 1fr;
-            height: 100vh;
+            min-height: 100vh;
         }
-        div, button {
+        div, button, h1 {
             user-select: none;
         }
         #info {
@@ -26,6 +26,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 5px;
         }
         #klikkflate:active {
             background-color: blueviolet;
@@ -116,22 +117,61 @@
         var tidenFlyr = false;
 
         var fingre = [
-            { navn: "Venstre lillefinger" },
-            { navn: "Venstre ringfinger" },
-            { navn: "Venstre langfinger" },
-            { navn: "Venstre pekefinger" },
-            { navn: "Venstre tommel" },
-            { navn: "Høyre tommel" },
-            { navn: "Høyre pekefinger" },
-            { navn: "Høyre langfinger" },
-            { navn: "Høyre ringfinger" },
-            { navn: "Høyre lillefinger" }
+            { navn: "Venstre lillefinger", antall: 0 },
+            { navn: "Venstre ringfinger", antall: 0 },
+            { navn: "Venstre langfinger", antall: 0 },
+            { navn: "Venstre pekefinger", antall: 0 },
+            { navn: "Venstre tommel", antall: 0 },
+            { navn: "Høyre tommel", antall: 0 },
+            { navn: "Høyre pekefinger", antall: 0 },
+            { navn: "Høyre langfinger", antall: 0 },
+            { navn: "Høyre ringfinger", antall: 0 },
+            { navn: "Høyre lillefinger", antall: 0 }
         ];
 
         function is_touch_device() {
             return 'ontouchstart' in window        // works on most browsers
                 || navigator.maxTouchPoints;       // works on IE10/11 and Surface
-        };
+        }
+
+        function oppsummering() {
+
+            btnReset.style.display = "none";
+            klikkflate.style.display = "block";
+            klikkflate.style.opacity = 1;
+            klikkflate.style.backgroundColor = "#eeeeee";
+            klikkflate.style.cursor = "auto";
+
+
+            klikkflate.innerHTML = "<h1>Oppsummering</h1>";
+
+            var tabell = document.createElement("table");
+            var thead = document.createElement("thead");
+            var tbody = document.createElement("tbody");
+            tabell.className = "striped";
+            thead.innerHTML = "<thead><tr><th>Finger</th><th>Antall taps</th></tr></thead>";
+
+
+
+            var sumVenstre = 0;
+            var sumHoyre = 0;
+            for(var i=0; i<fingre.length; i++) {
+                var finger = fingre[i];
+                if(i < 5) {
+                    sumVenstre += finger.antall;
+                } else {
+                    sumHoyre += finger.antall;
+                }
+                tbody.innerHTML += "<tr><td>" + finger.navn + "</td><td>" + finger.antall + "</td></tr>";
+
+            }
+            tabell.appendChild(thead);
+            tabell.appendChild(tbody);
+
+            klikkflate.appendChild(tabell);
+
+
+        }
 
 
         function reset() {
@@ -154,8 +194,13 @@
             div.style.backgroundColor = "#eee";
             div.innerHTML = ant;
             div.animate([{transform: "scale(1.3)"}, {transform: "scale(1)"}], 200);
-            runde++;
-            //alert("Tiden er ute");
+
+            if(runde >= 2) {
+                oppsummering();
+            } else {
+                runde++;
+            }
+
         }
 
         function startKlokka(){
