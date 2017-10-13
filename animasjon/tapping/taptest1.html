@@ -65,23 +65,23 @@
             color: white;
             padding: 3px;
         }
-        #vl::before {  content:"VLI"; }
-        #vr::before {  content:"VR"; }
-        #vll::before {  content:"VLA"; }
-        #vp::before {  content:"VP"; }
-        #vt::before {  content:"VT"; }
-        #ht::before {  content:"HT"; }
-        #hp::before {  content:"HP"; }
-        #hll::before {  content:"HLA"; }
-        #hr::before {  content:"HR"; }
-        #hl::before {  content:"HL"; }
+        #vl::before {  content:"V1"; }
+        #vr::before {  content:"V2"; }
+        #vll::before {  content:"V3"; }
+        #vp::before {  content:"V4"; }
+        #vt::before {  content:"V5"; }
+        #ht::before {  content:"H1"; }
+        #hp::before {  content:"H2"; }
+        #hll::before {  content:"H3"; }
+        #hr::before {  content:"H4"; }
+        #hl::before {  content:"H5"; }
     </style>
 </head>
 <body>
 
     <header>
         <h1 id="info">0</h1>
-        <button id="btnReset" class="button expanded">KLIKK HER FOR Å GJØRE KLAR FOR NESTE FINGER</button>
+        <button id="btnReset" class="button expanded">KLIKK HER FOR Å STARTE NESTE FORSØK</button>
         <div id="animasjon">
             <div id="stolpe"></div>
         </div>
@@ -99,7 +99,7 @@
         </div>
     </header>
     <main id="klikkflate">
-        <h1 id="finger_info">Begynn å tappe her med venstre lillefinger</h1>
+        <h1 id="finger_info">Begynn å tappe her med venstre pekefinger</h1>
     </main>
 
     <script>
@@ -116,16 +116,16 @@
         btnReset.disabled = true;
 
         var fingre = [
-            { navn: "Venstre lillefinger", antall: 0 },
-            { navn: "Venstre ringfinger", antall: 0 },
-            { navn: "Venstre langfinger", antall: 0 },
             { navn: "Venstre pekefinger", antall: 0 },
-            { navn: "Venstre tommel", antall: 0 },
-            { navn: "Høyre tommel", antall: 0 },
+            { navn: "Venstre pekefinger", antall: 0 },
+            { navn: "Venstre pekefinger", antall: 0 },
+            { navn: "Venstre pekefinger", antall: 0 },
+            { navn: "Venstre pekefinger", antall: 0 },
             { navn: "Høyre pekefinger", antall: 0 },
-            { navn: "Høyre langfinger", antall: 0 },
-            { navn: "Høyre ringfinger", antall: 0 },
-            { navn: "Høyre lillefinger", antall: 0 }
+            { navn: "Høyre pekefinger", antall: 0 },
+            { navn: "Høyre pekefinger", antall: 0 },
+            { navn: "Høyre pekefinger", antall: 0 },
+            { navn: "Høyre pekefinger", antall: 0 }
         ];
 
         function is_touch_device() {
@@ -191,7 +191,7 @@
             klikkflate.style.opacity = 1;
             info.innerHTML = 0;
             finger_info.style.display = "block";
-            finger_info.innerHTML = "Begynn å tappe med " + fingre[runde-1].navn;
+            finger_info.innerHTML = "Begynn å tappe med " + fingre[runde-1].navn.toLowerCase();
         }
 
         function stoppKlokka() {
