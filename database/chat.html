@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The chat</title>
+</head>
+<body>
+
+    <form id="skjemaTilChat">
+        <input type="text" id="inpName" required placeholder="Hva heter du?">
+        <input type="text" id="inpText" required placeholder="Hva sier du?">
+        <button type="submit">OK</button>
+    </form>
+
+    <ul id="ulMeldinger"></ul>
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyB30c1LL__J6dgTgkDqxogX-t5Ha5gD6GE",
+            authDomain: "kode1-5e83c.firebaseapp.com",
+            databaseURL: "https://kode1-5e83c.firebaseio.com",
+            projectId: "kode1-5e83c",
+            storageBucket: "kode1-5e83c.appspot.com",
+            messagingSenderId: "448276405389"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+        var skjemaTilChat = document.getElementById("skjemaTilChat");
+        var inpName = document.getElementById("inpName");
+        var inpText = document.getElementById("inpText");
+        var ulMeldinger = document.getElementById("ulMeldinger");
+
+
+        var database = firebase.database();
+        var messages = database.ref("messages");
+
+        function lagreMelding(evt){
+            evt.preventDefault(); // Vi vil bli på denne siden
+            var message = {
+                sender: inpName.value,
+                text: inpText.value
+            };
+            messages.push(message);
+            inpText.value = "";
+        }
+
+        function visMelding(snapshot) {
+            var message = snapshot.val();
+
+            var oldMessages = ulMeldinger.innerHTML;
+
+            var nyMelding = `
+                <li>
+                    <b>${message.sender}: </b>
+                    <span>${message.text}</span>
+                </li>
+            `;
+
+            // Denne legger den nye meldingen før de gamle
+            ulMeldinger.innerHTML = nyMelding + oldMessages;
+
+            // Hvis du vil snu det, blir det sånn
+            //ulMeldinger.innerHTML = oldMessages + nyMelding;
+
+        }
+
+        skjemaTilChat.onsubmit = lagreMelding;
+        messages.on("child_added", visMelding);
+
+
+    </script>
+
+
+</body>
+</html>
