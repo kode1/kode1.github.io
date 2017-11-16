@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sirkler</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        #minCanvas {
+            background-color: black;
+        }
+        #inpColor {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="minCanvas"></canvas>
+    <input type="color" id="inpColor" value="#cccccc">
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyB30c1LL__J6dgTgkDqxogX-t5Ha5gD6GE",
+            authDomain: "kode1-5e83c.firebaseapp.com",
+            databaseURL: "https://kode1-5e83c.firebaseio.com",
+            projectId: "kode1-5e83c",
+            storageBucket: "kode1-5e83c.appspot.com",
+            messagingSenderId: "448276405389"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+
+        var db = firebase.database();
+        var sirkler = db.ref("sirkler");
+
+        var inpColor = document.getElementById("inpColor");
+        
+
+        var minCanvas = document.getElementById("minCanvas");
+        var ctx = minCanvas.getContext("2d");
+
+        minCanvas.width = innerWidth;
+        minCanvas.height = innerHeight;
+
+        function lagreSirkel(evt) {
+            var r = Math.abs(evt.clientX - innerWidth/2);
+
+            sirkler.push({
+               radius: r,
+               farge: inpColor.value
+            });
+        }
+
+        function tegnSirkel(snapshot) {
+            var sirkel = snapshot.val();
+            ctx.strokeStyle = sirkel.farge;
+            ctx.beginPath();
+                ctx.arc(innerWidth/2, innerHeight/2, sirkel.radius, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        minCanvas.onmousemove = lagreSirkel;
+        sirkler.on("child_added", tegnSirkel);
+
+    </script>
+
+</body>
+</html>
