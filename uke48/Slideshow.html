@@ -28,6 +28,7 @@
             width: 500%;
             display: grid;
             grid-template-columns: repeat(5, 1fr);
+            transition: 1s;
         }
         .slides > div {
             text-align: center;
@@ -60,6 +61,31 @@
             </div>
         </div>
     </main>
+
+    <script>
+
+        let slides = document.querySelector(".slides");
+        let marg = 0;
+
+        function forover() {
+            marg = marg - 100;
+            slides.style.marginLeft =  marg + "%";
+        }
+        function bakover() {
+            marg = marg + 100;
+            slides.style.marginLeft = marg + "%";
+        }
+
+        document.onclick = function(klikk) {
+            if(klikk.clientX > innerWidth / 2) {
+                forover();
+            } else {
+                bakover();
+            }
+        }
+
+    </script>
+
 
 </body>
 </html>
