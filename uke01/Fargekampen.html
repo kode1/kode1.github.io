@@ -1,58 +1,48 @@
 <!DOCTYPE html>
-<html lang="no">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fargekampen</title>
-    <style>
-        body {
-            background-color: khaki;
-            transition: 1s;
-        }
-    </style>
-</head>
-<body>
+    <title>Sample FirebaseUI App</title>
 
-    <input type="text" id="velgFarge" placeholder="Velg farge">
 
-    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
     <script>
         // Initialize Firebase
         var config = {
-            apiKey: "AIzaSyBpaB8AiZpO7OHOScaWlpxsA6EXZ_8AMSY",
-            authDomain: "min-utrolige-database.firebaseapp.com",
-            databaseURL: "https://min-utrolige-database.firebaseio.com",
-            projectId: "min-utrolige-database",
-            storageBucket: "min-utrolige-database.appspot.com",
-            messagingSenderId: "296496588831"
+            apiKey: "AIzaSyA-qal1VMRPhaRunTDnKVcz6TVIJ5HHtmQ",
+            authDomain: "the-quiz-a4a7e.firebaseapp.com",
+            databaseURL: "https://the-quiz-a4a7e.firebaseio.com",
+            projectId: "the-quiz-a4a7e",
+            storageBucket: "",
+            messagingSenderId: "617839831679"
         };
         firebase.initializeApp(config);
     </script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+    <script type="text/javascript">
+        // FirebaseUI config.
+        var uiConfig = {
+            signInSuccessUrl: 'thequiz.html',
+            signInOptions: [
+                // Leave the lines as is for the providers you want to offer your users.
+                firebase.auth.FacebookAuthProvider.PROVIDER_ID,
 
-    <script>
-        let velgFarge = document.getElementById("velgFarge");
+            ],
+            // Terms of service url.
+            tosUrl: '<your-tos-url>'
+        };
 
-        let db = firebase.database();
-        let farge = db.ref("farge");
-
-        function byttFarge() {
-            farge.set(velgFarge.value);
-        }
-
-        function visFarge(snapshot) {
-            document.body.style.backgroundColor = snapshot.val();
-        }
-
-        velgFarge.onchange = byttFarge;
-
-        // Når dataene endres i databasen, endrer vi
-        // fargen på nettsiden med funksjonen visFarge
-        farge.on("value", visFarge);
-
-
-
-
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // The start method will wait until the DOM is loaded.
+        ui.start('#firebaseui-auth-container', uiConfig);
     </script>
-
+</head>
+<body>
+<!-- The surrounding HTML is left untouched by FirebaseUI.
+     Your app may use that space for branding, controls and other customizations.-->
+<h1>Welcome to My Awesome App</h1>
+<div id="firebaseui-auth-container"></div>
 </body>
 </html>
