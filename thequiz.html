@@ -36,7 +36,9 @@
                         var svarene = db.ref("svarene");
 
                         svarene.push({
-                           user: uid,
+                           uid: uid,
+                            displayName: displayName,
+                            email: email,
                            svar: [2, 1, 4, 3, 3, 2, 1]
                         });
 
