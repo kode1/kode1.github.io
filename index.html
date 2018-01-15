@@ -2,9 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sample FirebaseUI App</title>
-
-
     <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -27,6 +26,7 @@
             signInOptions: [
                 // Leave the lines as is for the providers you want to offer your users.
                 firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID
 
             ],
             // Terms of service url.
