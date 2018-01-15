@@ -31,6 +31,15 @@
                     var phoneNumber = user.phoneNumber;
                     var providerData = user.providerData;
                     user.getIdToken().then(function(accessToken) {
+
+                        var db = firebase.database();
+                        var svarene = db.ref("svarene");
+
+                        svarene.push({
+                           user: uid,
+                           svar: [2, 1, 4, 3, 3, 2, 1]
+                        });
+
                         document.getElementById('sign-in-status').textContent = 'Signed in';
                         document.getElementById('sign-in').textContent = 'Sign out';
                         document.getElementById('account-details').textContent = JSON.stringify({
