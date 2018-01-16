@@ -89,6 +89,62 @@
 
 
                     var svarene = [];
+                    var farger = [
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3",
+                        "button expanded r1",
+                        "button expanded r2",
+                        "button expanded r3"
+                    ];
 
                     var questions = [
                         {
@@ -135,6 +191,9 @@
                         btn2.innerHTML = oppgave.svar[1];
                         btn3.innerHTML = oppgave.svar[2];
 
+                        btn1.className = farger[i];
+                        btn2.className = farger[i + 1];
+                        btn3.className = farger[i + 2];
                     }
 
                     function nesteOppgave() {
@@ -142,7 +201,7 @@
                         svarene.push(nummer);
                         i++;
                         if(i === questions.length) {
-                            alert("FERDIG");
+                            alert(svarene);
                         } else {
                             lagOppgave();
                         }
