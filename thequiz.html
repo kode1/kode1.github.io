@@ -65,6 +65,31 @@
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
 
+                    // User is signed in.
+                    var displayName = user.displayName;
+                    var email = user.email;
+                    var emailVerified = user.emailVerified;
+                    var photoURL = user.photoURL;
+                    var uid = user.uid;
+                    var phoneNumber = user.phoneNumber;
+                    var providerData = user.providerData;
+
+
+                    var db = firebase.database();
+                    var svar = db.ref("svar");
+
+                    /*
+                    svarene.push({
+                        uid: uid,
+                        displayName: displayName,
+                        email: email,
+                        svar: [2, 1, 4, 3, 3, 2, 1]
+                    });
+                    */
+
+
+                    var svarene = [];
+
                     var questions = [
                         {
                             q: 'Hvem er rektor på Sandvika?',
@@ -112,29 +137,30 @@
 
                     }
 
+                    function nesteOppgave() {
+                        var nummer = Number(this.getAttribute("data-nummer"));
+                        svarene.push(nummer);
+                        i++;
+                        if(i === questions.length) {
+                            alert("FERDIG");
+                        } else {
+                            lagOppgave();
+                        }
+
+
+                    }
+
                     lagOppgave();
 
-                    // User is signed in.
-                    var displayName = user.displayName;
-                    var email = user.email;
-                    var emailVerified = user.emailVerified;
-                    var photoURL = user.photoURL;
-                    var uid = user.uid;
-                    var phoneNumber = user.phoneNumber;
-                    var providerData = user.providerData;
+
+                    btn1.onclick = nesteOppgvave;
+                    btn2.onclick = nesteOppgvave;
+                    btn3.onclick = nesteOppgvave;
+
+
                     user.getIdToken().then(function(accessToken) {
 
-                        var db = firebase.database();
-                        var svarene = db.ref("svarene");
 
-                        /*
-                        svarene.push({
-                            uid: uid,
-                            displayName: displayName,
-                            email: email,
-                            svar: [2, 1, 4, 3, 3, 2, 1]
-                        });
-                        */
 
                         document.getElementById('sign-in-status').textContent = 'Signed in';
                         document.getElementById('sign-in').textContent = 'Sign out';
@@ -168,13 +194,13 @@
 <body>
     <h1 id="sprsml">Hvem er idiot på Sandvika VGS?</h1>
 
-        <button id="btn1" class="button expanded r1">Pål Kristensen</button>
+        <button id="btn1" data-nummer="0" class="button expanded r1">Pål Kristensen</button>
 
 
-        <button id="btn2" class="button expanded r2">Gløer Langslet</button>
+        <button id="btn2" data-nummer="1" class="button expanded r2">Gløer Langslet</button>
 
 
-        <button id="btn3" class="button expanded r3">Arne Opsahl</button>
+        <button id="btn3" data-nummer="2" class="button expanded r3">Arne Opsahl</button>
 
 
 </body>
