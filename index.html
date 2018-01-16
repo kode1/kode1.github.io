@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sample FirebaseUI App</title>
+    <title>Velkommen til Quiz</title>
     <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -20,6 +20,35 @@
     <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <style>
+        body {
+            padding: 5px;
+            min-height: 100vh;
+            background-image: url(Sandvika_2016_logo.png);
+            background-position: center bottom;
+            background-size: 80vw auto;
+            background-repeat: no-repeat;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: 'Indie Flower', sans-serif;
+            font-size: 64px;
+            color: #00AEEF;
+            filter: drop-shadow(2px 2px 2px);
+        }
+        img {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        #login {
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
     <script type="text/javascript">
         // FirebaseUI config.
         var uiConfig = {
@@ -43,7 +72,12 @@
 <body>
 <!-- The surrounding HTML is left untouched by FirebaseUI.
      Your app may use that space for branding, controls and other customizations.-->
-<h1>Welcome to My Awesome App</h1>
-<div id="firebaseui-auth-container"></div>
+    <h1>Velkommen til QUIZ</h1>
+
+        <div id="firebaseui-auth-container"></div>
+
+
+
+
 </body>
 </html>
