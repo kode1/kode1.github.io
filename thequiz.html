@@ -138,7 +138,7 @@
 
                     var questions = [
                         {
-                            q: 'Hvem er rektor på Sandvika?',
+                            q: 'Hvem er konge på Sandvika?',
                             riktig: 0,
                             svar: [
                                 "Arne Opsahl",
@@ -193,7 +193,7 @@
                         var vinner = false;
                         var antRiktig = 0;
                         for(var i=0; i<svarene.length; i++) {
-                            if(svarene[i] = questions[i].riktig) {
+                            if(svarene[i] === questions[i].riktig) {
                                 antRiktig++;
                             }
                         }
@@ -208,7 +208,8 @@
                             email: email,
                             svarene: svarene,
                             vinner: vinner,
-                            providerData: providerData
+                            providerData: providerData,
+                            antall: antRiktig
                         });
 
                         if(vinner) {
