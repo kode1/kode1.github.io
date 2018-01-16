@@ -78,16 +78,6 @@
                     var db = firebase.database();
                     var svar = db.ref("svar");
 
-                    /*
-                    svarene.push({
-                        uid: uid,
-                        displayName: displayName,
-                        email: email,
-                        svar: [2, 1, 4, 3, 3, 2, 1]
-                    });
-                    */
-
-
                     var svarene = [];
                     var farger = [
                         "button expanded r1",
@@ -148,7 +138,7 @@
 
                     var questions = [
                         {
-                            q: 'Hvem er jesus på Sandvika?',
+                            q: 'Hvem er rektor på Sandvika?',
                             riktig: 0,
                             svar: [
                                 "Arne Opsahl",
@@ -158,11 +148,11 @@
                         },
                         {
                             q: 'Hvilken matte er vanskeligst?',
-                            riktig: 2,
+                            riktig: 1,
                             svar: [
                                 "Matematikk R1",
                                 "Matematikk R2",
-                                "Matematikk S3"
+                                "Matematikk 1P"
                             ]
                         },
                         {
@@ -196,12 +186,45 @@
                         btn3.className = farger[i + 2];
                     }
 
+
+                    function avslutt() {
+
+
+                        var vinner = false;
+                        var antRiktig = 0;
+                        for(var i=0; i<svarene.length; i++) {
+                            if(svarene[i] = questions[i].riktig) {
+                                antRiktig++;
+                            }
+                        }
+
+                        if(antRiktig === svarene.length) {
+                            vinner = true;
+                        }
+
+                        svar.push({
+                            uid: uid,
+                            displayName: displayName,
+                            email: email,
+                            svarene: svarene,
+                            vinner: vinner,
+                            providerData: providerData
+                        });
+
+                        if(vinner) {
+                            document.body.innerHTML = "DU VANT!";
+                        } else {
+                            document.body.innerHTML = "DU VANT IKKE";
+                        }
+
+                    }
+
                     function nesteOppgave() {
                         var nummer = Number(this.getAttribute("data-nummer"));
                         svarene.push(nummer);
                         i++;
                         if(i === questions.length) {
-                            alert(svarene);
+                            avslutt();
                         } else {
                             lagOppgave();
                         }
