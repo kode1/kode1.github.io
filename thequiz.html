@@ -92,7 +92,7 @@
 
                     var questions = [
                         {
-                            q: 'Hvem er rektor på Sandvika?',
+                            q: 'Hvem er konge på Sandvika?',
                             riktig: 0,
                             svar: [
                                 "Arne Opsahl",
@@ -162,18 +162,18 @@
 
 
 
-                        document.getElementById('sign-in-status').textContent = 'Signed in';
-                        document.getElementById('sign-in').textContent = 'Sign out';
-                        document.getElementById('account-details').textContent = JSON.stringify({
-                            displayName: displayName,
-                            email: email,
-                            emailVerified: emailVerified,
-                            phoneNumber: phoneNumber,
-                            photoURL: photoURL,
-                            uid: uid,
-                            accessToken: accessToken,
-                            providerData: providerData
-                        }, null, '  ');
+                        //document.getElementById('sign-in-status').textContent = 'Signed in';
+                        //document.getElementById('sign-in').textContent = 'Sign out';
+                        //document.getElementById('account-details').textContent = JSON.stringify({
+                        //    displayName: displayName,
+                        //    email: email,
+                        //    emailVerified: emailVerified,
+                        //    phoneNumber: phoneNumber,
+                        //    photoURL: photoURL,
+                        //    uid: uid,
+                        //    accessToken: accessToken,
+                        //    providerData: providerData
+                        //}, null, '  ');
                     });
                 } else {
                     // User is signed out.
@@ -192,15 +192,15 @@
     </script>
 </head>
 <body>
-    <h1 id="sprsml">Hvem er idiot på Sandvika VGS?</h1>
+    <h1 id="sprsml">Laster spørsmål ...</h1>
 
-        <button id="btn1" data-nummer="0" class="button expanded r1">Pål Kristensen</button>
-
-
-        <button id="btn2" data-nummer="1" class="button expanded r2">Gløer Langslet</button>
+        <button id="btn1" data-nummer="0" class="button expanded r1"></button>
 
 
-        <button id="btn3" data-nummer="2" class="button expanded r3">Arne Opsahl</button>
+        <button id="btn2" data-nummer="1" class="button expanded r2"></button>
+
+
+        <button id="btn3" data-nummer="2" class="button expanded r3"></button>
 
 
 </body>
