@@ -214,7 +214,8 @@
                         });
 
                         if(vinner) {
-                            document.body.innerHTML = "<h1>Gratulerer! Du er med i trekningen av en iPad</h1>";
+                            document.body.style.gridTemplateRows = "1fr";
+                            document.body.innerHTML = "<h1>Gratulerer! Du er med i trekningen av en iPad</h1><img style="width: 80%;" src="trophy.svg">;
                         } else {
                             document.body.innerHTML = "<h1>Beklager! Du klarte ikke alle oppgavene!</h1>";
                         }
