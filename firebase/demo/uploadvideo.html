@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload images</title>
+    <style>
+
+        main {
+            display: grid;
+            grid-gap: 5px;
+            grid-auto-rows: 200px;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+
+        main > div {
+            background-size: cover;
+            background-position: center center;
+        }
+
+        @media (max-width: 820px) {
+            main {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            main {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div>
+        <input type="file" id="inpFil">
+    </div>
+    <main id="bilder"></main>
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAEJB9V7ut590T6E9bz1ihakDnjxuR50oY",
+            authDomain: "it1-er-best.firebaseapp.com",
+            databaseURL: "https://it1-er-best.firebaseio.com",
+            projectId: "it1-er-best",
+            storageBucket: "it1-er-best.appspot.com",
+            messagingSenderId: "87355636782"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+
+        const inpFil = document.getElementById("inpFil");
+        const storage = firebase.storage();
+        const db = firebase.database();
+        const videoURLer = db.ref("bildeURLer");
+
+        const bilder = document.getElementById("bilder");
+
+
+        function lagreData(snap) {
+            videoURLer.push(snap.downloadURL);
+        }
+
+        function visBilde(snap) {
+            let url = snap.val();
+            bilder.innerHTML = `
+                <video src="${url}">
+            ` + bilder.innerHTML;
+        }
+
+        inpFil.onchange = function() {
+
+            let fil = inpFil.files[0];
+            const lagringsplass = storage.ref("video/" + new Date() );
+
+
+            lagringsplass.put(fil)
+                .then( lagreData );
+
+        };
+
+        videoURLer.on("child_added", visBilde);
+
+    </script>
+</body>
+</html>
