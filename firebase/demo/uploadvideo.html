@@ -62,9 +62,7 @@
 
         function visBilde(snap) {
             let url = snap.val();
-            bilder.innerHTML = `
-                <video src="${url}" controls autoplay>
-            ` + bilder.innerHTML;
+            bilder.innerHTML = `<video src="${url}" controls autoplay></video>` + bilder.innerHTML;
         }
 
         inpFil.onchange = function() {
