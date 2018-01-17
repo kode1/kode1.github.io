@@ -9,25 +9,16 @@
         main {
             display: grid;
             grid-gap: 5px;
-            grid-auto-rows: 200px;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
+            max-width: 700px;
+            margin: auto;
         }
 
         video {
             width: 100%;
         }
 
-        @media (max-width: 820px) {
-            main {
-                grid-template-columns: 1fr 1fr 1fr;
-            }
-        }
 
-        @media (max-width: 600px) {
-            main {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
 
 
     </style>
@@ -60,7 +51,7 @@
         const inpFil = document.getElementById("inpFil");
         const storage = firebase.storage();
         const db = firebase.database();
-        const videoURLer = db.ref("bildeURLer");
+        const videoURLer = db.ref("videoURLer");
 
         const bilder = document.getElementById("bilder");
 
