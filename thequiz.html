@@ -238,12 +238,18 @@
                     var questions = [];
 
                     function parseQs(snap) {
-                        const q = snap.val();
-                        questions.push(q);
+                        var q = snap.val();
+
+                        q.forEach(function(el) {
+                            questions.push(el);
+                        });
+
+
+                        lagOppgave();
                     }
 
 
-                    qs.on("child_added", parseQs);
+                    qs.on("value", parseQs);
 
                     var i = 0;
 
@@ -314,7 +320,7 @@
 
                     }
 
-                    lagOppgave();
+                    //lagOppgave();
 
 
                     btn1.onclick = nesteOppgave;
