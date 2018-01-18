@@ -71,6 +71,12 @@
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
         // The start method will wait until the DOM is loaded.
         ui.start('#firebaseui-auth-container', uiConfig);
+
+
+        var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        document.body.style['min-height'] = height + 'px'
+
+
     </script>
 </head>
 <body>
