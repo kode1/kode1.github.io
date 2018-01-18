@@ -23,6 +23,24 @@
             background-position: center center;
         }
 
+        @media (max-width: 800px) {
+            #bildeContainer {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+        @media (max-width: 600px) {
+            #bildeContainer {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 300px;
+            }
+        }
+        @media (max-width: 460px) {
+            #bildeContainer {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 400px;
+            }
+        }
+
     </style>
 </head>
 <body>
