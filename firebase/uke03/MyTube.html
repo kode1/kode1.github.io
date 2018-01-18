@@ -48,13 +48,44 @@
 
     </main>
 
+    <!-- Legg inn Firebase-koden her -->
+
     <script>
         const inpTittel = document.getElementById("inpTittel");
         const inpVideo = document.getElementById("inpVideo");
         const minVideo = document.getElementById("minVideo");
         const videoliste = document.getElementById("videoliste");
 
+        const db = firebase.database();
+        const storage = firebase.storage();
+        const minevideoer = db.ref("minevideoer");
 
+        // info inneholder data om videoen som er lastet opp
+        function lagreData(info) {
+            minevideoer.push({
+                tittel: inpTittel.value,
+                url: info.downloadURL
+            });
+        }
+
+        function lastOppVideo() {
+            const video = inpVideo.files[0];
+            const lagringsplass = storage.ref("videofiler/" + new Date());
+            lagringsplass.put(video).then(lagreData);
+        }
+
+        function spillFilm(url) {
+            minVideo.src = url;
+            minVideo.play();
+        }
+
+        function visListe(snap) {
+            const film = snap.val();
+            videoliste.innerHTML += `<span onclick="spillFilm('${film.url}')">${film.tittel}</span>`;
+        }
+
+        inpVideo.onchange = lastOppVideo;
+        minevideoer.on("child_added", visListe);
 
 
     </script>
