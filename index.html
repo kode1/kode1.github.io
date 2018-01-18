@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="mobile">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,10 +25,13 @@
         * {
             box-sizing: border-box;
         }
+        html, body {
+            height: 100%;
+        }
         body {
             margin: 0;
             padding: 5px;
-            min-height: 100vh;
+            /* min-height: 100vh; */
             background-image: url(Sandvika_2016_logo.png);
             background-position: center bottom;
             background-size: 80vw auto;
@@ -73,14 +76,9 @@
         ui.start('#firebaseui-auth-container', uiConfig);
 
 
-        var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-        document.getElementsByClassName('mobile')[0].style['min-height'] = height + 'px';
-        document.getElementsByClassName('mobile')[1].style['min-height'] = height + 'px';
-
-
     </script>
 </head>
-<body class="mobile">
+<body>
 <!-- The surrounding HTML is left untouched by FirebaseUI.
      Your app may use that space for branding, controls and other customizations.-->
     <h1>Velkommen til QUIZ</h1>
