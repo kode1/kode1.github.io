@@ -7,15 +7,48 @@
 </head>
 <body>
 
-    <input type="file" id="inpBilde">
+    <div>
+        <input type="file" id="inpBilde">
+    </div>
+    <img id="mittBilde">
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyC8nG0qKKT-mBzoc0Q3h-rlUZdD4D2dEco",
+            authDomain: "fruktbutikken.firebaseapp.com",
+            databaseURL: "https://fruktbutikken.firebaseio.com",
+            projectId: "fruktbutikken",
+            storageBucket: "fruktbutikken.appspot.com",
+            messagingSenderId: "44451318197"
+        };
+        firebase.initializeApp(config);
+    </script>
 
     <script>
 
+        const storage = firebase.storage();
+
         const inpBilde = document.getElementById("inpBilde");
+        const mittBilde = document.getElementById("mittBilde");
+
+
+        function visBilde(bildeinfo){
+            mittBilde.src = bildeinfo.downloadURL;
+        }
 
         function lastOppBilde() {
+            // En referanse til filen vi har valgt
             const bilde = inpBilde.files[0];
-            console.log(bilde);
+
+            // Hvor skal vi lagre bildet?
+            const lagringsplass = storage.ref("bilder/sommer");
+
+            // Laster bildet opp til valgt plass
+            lagringsplass.put(bilde).then(visBilde);
+
         }
 
         inpBilde.onchange = lastOppBilde;
