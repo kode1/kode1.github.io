@@ -138,6 +138,7 @@
                         "button expanded r3"
                     ];
 
+                    /*
                     var questions = [
                         {
                             q: 'Hvor mage ganger har Sandvika vunnet pris for beste skolerevy?',
@@ -230,6 +231,22 @@
                             ]
                         }
                     ];
+                    */
+
+                    var qs = db.ref("questions");
+
+                    var questions = [];
+
+                    function parseQs(snap) {
+                        const q = snap.val();
+                        questions.push(q);
+
+                        console.log(questions);
+                    }
+
+
+                    qs.on("child_added", parseQs)
+                        .then(lagOppgave);
 
                     var i = 0;
 
@@ -300,7 +317,7 @@
 
                     }
 
-                    lagOppgave();
+                    //lagOppgave();
 
 
                     btn1.onclick = nesteOppgave;
