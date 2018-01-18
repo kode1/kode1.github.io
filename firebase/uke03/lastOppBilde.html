@@ -4,13 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Last opp et bilde</title>
+    <style>
+
+        body {
+            background-color: darkorange;
+        }
+
+        #bildeContainer {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-auto-rows: 200px;
+            grid-gap: 4px;
+        }
+
+        #bildeContainer > div {
+            border: 4px solid white;
+            background-size: cover;
+            background-position: center center;
+        }
+
+    </style>
 </head>
 <body>
 
     <div>
         <input type="file" id="inpBilde">
     </div>
-    <img id="mittBilde">
+    <main id="bildeContainer">
+
+    </main>
 
 
     <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
@@ -30,13 +52,18 @@
     <script>
 
         const storage = firebase.storage();
+        const db = firebase.database();
+
+        const minebilder = db.ref("minebilder");
 
         const inpBilde = document.getElementById("inpBilde");
-        const mittBilde = document.getElementById("mittBilde");
+        const bildeContainer = document.getElementById("bildeContainer");
+        
 
 
-        function visBilde(bildeinfo){
-            mittBilde.src = bildeinfo.downloadURL;
+        function lagreInfo(bildeinfo){
+            // Lagrer linken (url) til bildet i databasen
+            minebilder.push(bildeinfo.downloadURL);
         }
 
         function lastOppBilde() {
@@ -44,14 +71,23 @@
             const bilde = inpBilde.files[0];
 
             // Hvor skal vi lagre bildet?
-            const lagringsplass = storage.ref("bilder/sommer");
+            const lagringsplass = storage.ref("bilder/" + new Date() );
 
             // Laster bildet opp til valgt plass
-            lagringsplass.put(bilde).then(visBilde);
+            lagringsplass.put(bilde).then(lagreInfo);
 
         }
 
+        function visBilde(snap) {
+            const bilde = snap.val();
+            console.log(bilde);
+            bildeContainer.innerHTML = `
+                <div style="background-image: url('${bilde}')"></div>
+            ` + bildeContainer.innerHTML;
+        }
+
         inpBilde.onchange = lastOppBilde;
+        minebilder.on("child_added", visBilde);
 
 
     </script>
