@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#e5294c">
+    <title>TREKNING AV QUIZ PÅ SANDVIKA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+    </style>
+
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyA-qal1VMRPhaRunTDnKVcz6TVIJ5HHtmQ",
+            authDomain: "the-quiz-a4a7e.firebaseapp.com",
+            databaseURL: "https://the-quiz-a4a7e.firebaseio.com",
+            projectId: "the-quiz-a4a7e",
+            storageBucket: "",
+            messagingSenderId: "617839831679"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script type="text/javascript">
+        initApp = function() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+
+                    // User is signed in.
+                    var displayName = user.displayName;
+                    var email = user.email;
+                    var emailVerified = user.emailVerified;
+                    var photoURL = user.photoURL;
+                    var uid = user.uid;
+                    var phoneNumber = user.phoneNumber;
+                    var providerData = user.providerData;
+
+
+                    var tb = document.getElementById("tb");
+
+                    var db = firebase.database();
+                    var svar = db.ref("svar");
+                    var qs = db.ref("questions");
+
+                    var questions = [];
+                    function parseQs(snap) {
+                        var q = snap.val();
+
+                        q.forEach(function(el) {
+                            questions.push(el);
+                        });
+
+                        // Sammenligne her?
+
+                    }
+
+                    function visSvar(snap) {
+                        var svar = snap.val();
+
+                        tb.innerHTML += `
+                            <tr>
+                                <td>${svar.providerData.0.displayName}</td>
+                            </tr>
+                        `;
+
+
+                    }
+
+                    qs.on("value", parseQs);
+                    svar.on("child_added", visSvar);
+
+                } else {
+                    // Not logged in
+                }
+            }, function(error) {
+                console.log(error);
+            });
+        };
+
+        window.addEventListener('load', function() {
+            initApp();
+        });
+    </script>
+</head>
+<body>
+
+    <table>
+        <tbody id="tb"></tbody>
+    </table>
+
+</body>
+</html>
