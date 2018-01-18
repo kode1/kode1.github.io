@@ -240,13 +240,10 @@
                     function parseQs(snap) {
                         const q = snap.val();
                         questions.push(q);
-
-                        console.log(questions);
                     }
 
 
-                    qs.on("child_added", parseQs)
-                        .then(lagOppgave);
+                    qs.on("child_added", parseQs);
 
                     var i = 0;
 
@@ -317,7 +314,7 @@
 
                     }
 
-                    //lagOppgave();
+                    lagOppgave();
 
 
                     btn1.onclick = nesteOppgave;
