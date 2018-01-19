@@ -74,8 +74,11 @@
         const inpTittel = document.getElementById("inpTittel");
 
         function lagreData(info) {
+            let tittel = "Uten tittel";
+            if(inpTittel.value) tittel = inpTittel.value;
+
             videoer.push({
-                tittel: inpTittel.value,
+                tittel: tittel,
                 url: info.downloadURL
             });
         }
