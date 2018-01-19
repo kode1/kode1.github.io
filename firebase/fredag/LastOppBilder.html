@@ -4,27 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Last opp bilder</title>
+    <style>
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            background-color: darkorange;
+        }
+        header {
+            background-color: darkgreen;
+            padding: 10px;
+        }
+        #inpBilde {
+            display: none;
+        }
+        label {
+            padding: 7px;
+            background-color: darkmagenta;
+            display: inline-block;
+        }
+
+    </style>
 </head>
 <body>
 
-    <input type="file" id="inpBilde">
+    <header>
+        <label for="inpBilde">Last opp bilde</label>
+        <input type="file" id="inpBilde">
+    </header>
+
+    <img id="mittBilde">
 
 
-    <!-- Lim inn Firebase-koden her -->
 
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCsTw8o1FWOXfmeW5cxz7OIs6X3F3eJ9bk",
+            authDomain: "my-great-app-14bcc.firebaseapp.com",
+            databaseURL: "https://my-great-app-14bcc.firebaseio.com",
+            projectId: "my-great-app-14bcc",
+            storageBucket: "my-great-app-14bcc.appspot.com",
+            messagingSenderId: "868569791651"
+        };
+        firebase.initializeApp(config);
+    </script>
 
     <script>
 
         const storage = firebase.storage();
 
         const inpBilde = document.getElementById("inpBilde");
+        const mittBilde = document.getElementById("mittBilde");
+
+
+
+        function visBilde(bildeinfo) {
+            mittBilde.src = bildeinfo.downloadURL;
+        }
 
         function lastOppBilde() {
 
             const bilde = inpBilde.files[0];
             const lagringsplass = storage.ref("minebilder/" + bilde.name);
 
-            lagringsplass.put(bilde);
+            lagringsplass.put(bilde)
+                .then(visBilde);
 
         }
 
