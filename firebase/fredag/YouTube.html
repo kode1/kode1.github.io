@@ -30,17 +30,23 @@
         #knapper > span:hover {
             background-color: darkblue;
         }
+        input {
+            width: 100%;
+            padding: 3px;
+            font-size: 14px;
+        }
 
 
     </style>
 </head>
 <body>
-    <header style="margin-bottom: 10px;">
-        <input type="text" id="inpTittel" placeholder="Hva heter filmen">
-        <input type="file" id="inpVideo">
-    </header>
+
 
     <main>
+        <header style="margin-bottom: 10px;">
+            <input type="text" id="inpTittel" placeholder="Hva heter filmen">
+            <input type="file" id="inpVideo">
+        </header>
         <video id="minVideo" src="" controls poster="hund.png"></video>
         <div id="knapper">
 
@@ -91,6 +97,13 @@
         }
 
         function lagKnapp(snap) {
+            const ac = new AudioContext();
+            const osc = ac.createOscillator();
+            osc.connect(ac.destination);
+            osc.start(0);
+            osc.stop(0.2);
+
+
             const video = snap.val();
             knapper.innerHTML += `<span onclick="spillFilm('${video.url}')">${video.tittel}</span>`;
         }
