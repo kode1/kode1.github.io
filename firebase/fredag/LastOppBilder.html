@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Last opp bilder</title>
+</head>
+<body>
+
+    <input type="file" id="inpBilde">
+
+
+    <!-- Lim inn Firebase-koden her -->
+
+
+    <script>
+
+        const storage = firebase.storage();
+
+        const inpBilde = document.getElementById("inpBilde");
+
+        function lastOppBilde() {
+
+            const bilde = inpBilde.files[0];
+            const lagringsplass = storage.ref("minebilder/" + bilde.name);
+
+            lagringsplass.put(bilde);
+
+        }
+
+        inpBilde.onchange = lastOppBilde;
+
+    </script>
+
+</body>
+</html>
