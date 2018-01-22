@@ -7,12 +7,20 @@
 </head>
 <body>
 
-    <h1 id="txtQuestion">Laster innhold...</h1>
-    <button data-nummer="0" id="btn1">...</button>
-    <button data-nummer="1" id="btn2">...</button>
-    <button data-nummer="2" id="btn3">...</button>
+    <main id="main">
+        <h1 id="txtQuestion">Laster innhold...</h1>
+        <button data-nummer="0" id="btn1">...</button>
+        <button data-nummer="1" id="btn2">...</button>
+        <button data-nummer="2" id="btn3">...</button>
+        <img src="" id="bilde">
+        <audio id="lyd"></audio>
+    </main>
+
+
 
     <script>
+
+        const main = document.getElementById("main");
 
         const txtQuestion = document.getElementById("txtQuestion");
         const btn1 = document.getElementById("btn1");
@@ -25,6 +33,7 @@
         const questions = [
             {
                 tekst : "Hvem er raskest?",
+                "bilde" : "superhelt.jpg",
                 svarene : [
                     "Supermann",
                     "Lynvingen",
@@ -34,6 +43,7 @@
             },
             {
                 tekst : "Hvem er lurest?",
+                "bilde" : "politiker.jpg",
                 svarene : [
                     "Erna",
                     "Jonas",
@@ -43,6 +53,7 @@
             },
             {
                 tekst : "Hvem er best?",
+                "bilde" : "spiller.jpg",
                 svarene : [
                     "Messi",
                     "Bale",
@@ -53,7 +64,17 @@
         ];
 
         function visOppsummering() {
-            // Her kommer oppsummeringen
+
+            let antallRiktige = 0;
+            for(let i=0; i<questions.length; i++) {
+                let svar = brukersvar[i];
+                let fasit = questions[i].fasit;
+                if(svar === fasit) {
+                    antallRiktige++;
+                }
+            }
+            main.innerHTML = "Du fikk " + antallRiktige + " av " + questions.length + " riktige";
+
         }
 
         function lagOppgave() {
@@ -65,12 +86,12 @@
                 btn1.innerText = q.svarene[0];
                 btn2.innerText = q.svarene[1];
                 btn3.innerText = q.svarene[2];
-
+                nr++;
             } else {
                 visOppsummering();
             }
 
-            nr++;
+
 
         }
 
