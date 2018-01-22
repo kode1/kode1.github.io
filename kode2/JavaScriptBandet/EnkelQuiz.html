@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Enkel Quiz</title>
+</head>
+<body>
+
+    <audio id="orgel" src="orgel.mp3"></audio>
+    <audio id="bass" src="bass.mp3"></audio>
+
+    <h1>Hvem er fienden til Supermann?</h1>
+    <input type="text" id="inpSvar">
+    <button id="btnSvar">OK</button>
+
+    <script>
+        const orgel = document.getElementById("orgel");
+        const bass = document.getElementById("bass");
+        const inpSvar = document.getElementById("inpSvar");
+        const btnSvar = document.getElementById("btnSvar");
+
+        btnSvar.onclick = function() {
+            if( (inpSvar.value).toUpperCase() === "LEX LUTHOR") {
+                orgel.play();
+            } else {
+                bass.play();
+            }
+        };
+
+        inpSvar.oninput = function() {
+            orgel.pause();
+            bass.pause();
+            orgel.currentTime = 0;
+            bass.currentTime = 0;
+        }
+
+
+
+    </script>
+
+</body>
+</html>
