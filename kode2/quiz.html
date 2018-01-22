@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quiz</title>
+</head>
+<body>
+
+    <h1 id="txtQuestion">Laster innhold...</h1>
+    <button data-nummer="0" id="btn1">...</button>
+    <button data-nummer="1" id="btn2">...</button>
+    <button data-nummer="2" id="btn3">...</button>
+
+    <script>
+
+        const txtQuestion = document.getElementById("txtQuestion");
+        const btn1 = document.getElementById("btn1");
+        const btn2 = document.getElementById("btn2");
+        const btn3 = document.getElementById("btn3");
+
+
+        let nr = 0;
+        let brukersvar = [];
+        const questions = [
+            {
+                tekst : "Hvem er raskest?",
+                svarene : [
+                    "Supermann",
+                    "Lynvingen",
+                    "Hulken"
+                ],
+                fasit : 0
+            },
+            {
+                tekst : "Hvem er lurest?",
+                svarene : [
+                    "Erna",
+                    "Jonas",
+                    "Siv"
+                ],
+                fasit: 2
+            },
+            {
+                tekst : "Hvem er best?",
+                svarene : [
+                    "Messi",
+                    "Bale",
+                    "Ronaldo"
+                ],
+                fasit: 0
+            }
+        ];
+
+        function lagOppgave() {
+
+            if(nr < questions.length) {
+
+                const q = questions[nr];
+                txtQuestion.innerText = q.tekst;
+                btn1.innerText = q.svarene[0];
+                btn2.innerText = q.svarene[1];
+                btn3.innerText = q.svarene[2];
+
+            } else {
+                visOppsummering();
+            }
+
+            nr++;
+
+        }
+
+        function lagreSvar() {
+            const svarnr = this.getAttribute("data-nummer");
+            brukersvar.push( Number(svarnr) );
+
+            lagOppgave();
+
+            console.log(brukersvar);
+        }
+
+        lagOppgave();
+
+        btn1.onclick = lagreSvar;
+        btn2.onclick = lagreSvar;
+        btn3.onclick = lagreSvar;
+
+    </script>
+
+</body>
+</html>
