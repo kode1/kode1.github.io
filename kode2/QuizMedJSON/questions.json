@@ -1,0 +1,34 @@
+{
+  "questions" : [
+    {
+      "tekst" : "Hvem er raskest?",
+      "bilde" : "superhelt.jpg",
+      "svarene" : [
+        "Supermann",
+        "Lynvingen",
+        "Hulken"
+      ],
+      "fasit" : 0
+    },
+    {
+      "tekst" : "Hvem er lurest?",
+      "bilde" : "politiker.jpg",
+      "svarene" : [
+        "Erna",
+        "Jonas",
+        "Siv"
+      ],
+      "fasit" : 2
+    },
+    {
+      "tekst" : "Hvem er best?",
+      "bilde" : "spiller.jpg",
+      "svarene" : [
+        "Messi",
+        "Bale",
+        "Ronaldo"
+      ],
+      "fasit" : 0
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quiz med JSON-data</title>
+</head>
+<body>
+
+    <main id="main">
+        <h1 id="txtQuestion">Laster innhold...</h1>
+        <button data-nummer="0" id="btn1">...</button>
+        <button data-nummer="1" id="btn2">...</button>
+        <button data-nummer="2" id="btn3">...</button>
+        <img src="" id="bilde">
+        <audio id="lyd"></audio>
+    </main>
+
+    <script>
+        /* Laster data fra en JSON-fil */
+        /* Dette virker bare når dere kjører siden fra localhost
+           eller har lagt ut både JSON- og HTML-fila på github e.l.
+         */
+
+        let questions = [];
+
+        // Henter JSON-fila med fetch
+        fetch('questions.json')
+            .then(function(response) {
+                return response.json()
+            }).then(function(json) {
+
+                // Fyller arrayet med data fra JSON-fila
+                // Lager den første oppgaven når dette har skjedd
+                // Da er vi sikre på at vi har dataene før vi lager den første oppgaven
+                questions = json.questions;
+                lagOppgave();
+        }).catch(function(ex) {
+            console.log('parsing failed', ex)
+        });
+
+        /* Herifra og ut er det helt likt, bortsett fra at lagOppgave() er fjernet fra bunnen av koden */
+
+
+        const main = document.getElementById("main");
+
+        const txtQuestion = document.getElementById("txtQuestion");
+        const btn1 = document.getElementById("btn1");
+        const btn2 = document.getElementById("btn2");
+        const btn3 = document.getElementById("btn3");
+
+
+        let nr = 0;
+        let brukersvar = [];
+
+
+        function visOppsummering() {
+
+            let antallRiktige = 0;
+            for(let i=0; i<questions.length; i++) {
+                let svar = brukersvar[i];
+                let fasit = questions[i].fasit;
+                if(svar === fasit) {
+                    antallRiktige++;
+                }
+            }
+            main.innerHTML = "Du fikk " + antallRiktige + " av " + questions.length + " riktige";
+
+        }
+
+        function lagOppgave() {
+
+            if(nr < questions.length) {
+
+                const q = questions[nr];
+                txtQuestion.innerText = q.tekst;
+                btn1.innerText = q.svarene[0];
+                btn2.innerText = q.svarene[1];
+                btn3.innerText = q.svarene[2];
+                nr++;
+            } else {
+                visOppsummering();
+            }
+        }
+
+        function lagreSvar() {
+            const svarnr = this.getAttribute("data-nummer");
+            brukersvar.push( Number(svarnr) );
+
+            lagOppgave();
+
+            console.log(brukersvar);
+        }
+
+
+        btn1.onclick = lagreSvar;
+        btn2.onclick = lagreSvar;
+        btn3.onclick = lagreSvar;
+
+
+
+
+
+    </script>
+
+</body>
+</html>
