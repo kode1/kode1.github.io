@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>TREKNING AV QUIZ PÅ SANDVIKA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+    </style>
+
+
+</head>
+<body>
+
+
+
+    <div style="padding: 10px">
+        <label>Mandag</label>
+        <button class="button" id="btn1" data-d="22" data-sh="9" data-sm="00" data-eh="10" data-em="30">Mandag 09:00 - 10:30</button>
+        <button class="button" id="btn2" data-d="22" data-sh="11" data-sm="00" data-eh="12" data-em="30">Mandag 11:00 - 12:30</button>
+        <button class="button" id="btn3" data-d="22" data-sh="13" data-sm="00" data-eh="14" data-em="30">Mandag 13:00 - 14:30</button>
+    </div>
+    <div style="padding: 10px">
+        <label>Tirsdag</label>
+        <button class="button" id="btn4" data-d="23" data-sh="9" data-sm="00" data-eh="10" data-em="30">Mandag 09:00 - 10:30</button>
+        <button class="button" id="btn5" data-d="23" data-sh="11" data-sm="00" data-eh="12" data-em="30">Mandag 11:00 - 12:30</button>
+        <button class="button" id="btn6" data-d="23" data-sh="13" data-sm="00" data-eh="14" data-em="30">Mandag 13:00 - 14:30</button>
+    </div>
+
+
+    <table style="padding: 10px">
+        <tbody id="tb"></tbody>
+    </table>
+
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyA-qal1VMRPhaRunTDnKVcz6TVIJ5HHtmQ",
+            authDomain: "the-quiz-a4a7e.firebaseapp.com",
+            databaseURL: "https://the-quiz-a4a7e.firebaseio.com",
+            projectId: "the-quiz-a4a7e",
+            storageBucket: "",
+            messagingSenderId: "617839831679"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script type="text/javascript">
+        var btn1 = document.getElementById("btn1");
+        var btn2 = document.getElementById("btn2");
+        var btn3 = document.getElementById("btn3");
+        var btn4 = document.getElementById("btn4");
+        var btn5 = document.getElementById("btn5");
+        var btn6 = document.getElementById("btn6");
+        var btnTrekk = document.getElementById("btnTrekk");
+
+
+        var tb = document.getElementById("tb");
+
+        var db = firebase.database();
+        var svarene = db.ref("svar");
+
+        var vinnere = [];
+
+        var start = new Date(2018,0,18,20,30,0,0);
+        var slutt = new Date(2018,0,18,24,00,0,0);
+
+        function visSvar(snap) {
+
+            var svar = snap.val();
+
+
+
+            var tid = svar.tid;
+
+            if(tid > start && tid < slutt) {
+                tb.innerHTML += `
+                    <tr>
+                        <td>${svar.displayName}</td>
+                        <td>${svar.email}</td>
+                        <td>${new Date(svar.tid)}</td>
+                    </tr>
+                `;
+                vinnere.push(svar);
+            }
+
+
+
+        }
+
+        //svarene.orderByChild("vinner").equalTo(true).on("child_added", visSvar);
+        //svarene.on("child_added", visSvar);
+
+        function trekkVinner() {
+
+            //Finner vinnere med riktig tidspunkt
+            tb.innerHTML = "";
+            vinnere = [];
+
+            var d = Number(this.getAttribute("data-d"));
+            var sh = Number(this.getAttribute("data-sh"));
+            var sm = Number(this.getAttribute("data-sm"));
+            var eh = Number(this.getAttribute("data-eh"));
+            var em = Number(this.getAttribute("data-em"));
+
+            start = new Date(2018,0,d,sh,sm,0,0);
+            slutt = new Date(2018,0,d,eh,em,0,0);
+
+            svarene.on("child_added", visSvar);
+
+        }
+
+
+
+        btn1.onclick = trekkVinner;
+        btn2.onclick = trekkVinner;
+        btn3.onclick = trekkVinner;
+        btn4.onclick = trekkVinner;
+        btn5.onclick = trekkVinner;
+        btn6.onclick = trekkVinner;
+
+        //btnTrekk.onclick = visVinner;
+
+    </script>
+
+</body>
+</html>
