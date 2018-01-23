@@ -33,6 +33,14 @@
 
 
     <table style="padding: 10px">
+        <thead>
+            <tr>
+                <th>Navn</th>
+                <th>Epost</th>
+                <th>Antall rette</th>
+                <th>Tid</th>
+            </tr>
+        </thead>
         <tbody id="tb"></tbody>
     </table>
 
@@ -83,6 +91,7 @@
                     <tr>
                         <td>${svar.displayName}</td>
                         <td>${svar.email}</td>
+                        <td>${svar.antall}</td>
                         <td>${new Date(svar.tid)}</td>
                     </tr>
                 `;
