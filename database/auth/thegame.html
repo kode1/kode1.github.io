@@ -2,8 +2,17 @@
 <html lang="no">
 <head>
     <meta charset="UTF-8">
-    <title>Sample FirebaseUI App</title>
+    <title>The game</title>
+    <style>
 
+        img {
+            position: absolute;
+            width: 50px;
+            left: 300px;
+            top: 300px;
+        }
+
+    </style>
     <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -20,6 +29,10 @@
 
     <script type="text/javascript">
         initApp = function() {
+
+            var db = firebase.database();
+            var bildeplasser = db.ref("bildeplasser");
+
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                     // User is signed in.
@@ -30,14 +43,27 @@
                     var uid = user.uid;
                     var phoneNumber = user.phoneNumber;
                     var providerData = user.providerData;
+
                     user.getIdToken().then(function(accessToken) {
 
 
-                        main.innerHTML = `
-                            <img src=${photoURL}>
-                            <h1>Velkommen ${displayName}</h1>
-                        `;
+                        document.onclick = function(evt) {
 
+                            bildeplasser.push({
+                                bilde: photoURL,
+                                x: evt.clientX,
+                                y: evt.clientY
+                            });
+                        };
+
+
+                        function visBilde(snap) {
+                            var bilde = snap.val();
+
+                            main.innerHTML += `<img src="${bilde.bilde}" style="left: ${bilde.x}px; top:${bilde.y}px">`;
+                        }
+
+                        bildeplasser.on("child_added", visBilde);
 
                     });
                 } else {
@@ -54,8 +80,11 @@
     </script>
 </head>
 <body>
-    <h1>Welcome to My Awesome App</h1>
+
     <main id="main">
+
+
+
 
     </main>
 
