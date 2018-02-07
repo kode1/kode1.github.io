@@ -1,0 +1,73 @@
+<body>
+
+<form id="skjema">
+
+    <input type="text" id="inpAvsender" required placeholder="Hvem er du?">
+
+    <input type="text" id="inpMening" required placeholder="Hva sier du?">
+
+    <button type="submit" class="button">OK</button>
+
+</form>
+
+<article id="txtMeldinger"></article>
+
+
+<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyB7DQh21uy3o6j1jHxAvWJExbtqS772nc8",
+        authDomain: "mytube-e54fc.firebaseapp.com",
+        databaseURL: "https://mytube-e54fc.firebaseio.com",
+        projectId: "mytube-e54fc",
+        storageBucket: "mytube-e54fc.appspot.com",
+        messagingSenderId: "161875891914"
+    };
+    firebase.initializeApp(config);
+</script>
+
+<script>
+
+    let database = firebase.database();
+    let meldinger = database.ref("meldinger");
+    let skjema = document.getElementById("skjema");
+    let inpAvsender = document.getElementById("inpAvsender");
+    let inpMening = document.getElementById("inpMening");
+    let txtMeldinger = document.getElementById("txtMeldinger");
+
+    function visMelding(snapshot) {
+        let melding = snapshot.val();
+        let meldingTekst = `<p>
+                                <b>${melding.avsender}: </b>
+                                <i>${melding.tekst}</i>
+                            </p>`;
+        txtMeldinger.innerHTML = txtMeldinger.innerHTML + meldingTekst;
+
+    }
+
+    function regNyMelding(evt) {
+
+        evt.preventDefault();
+
+        let nyMelding = {
+
+            avsender: inpAvsender.value,
+
+            tekst: inpMening.value
+
+        };
+
+        meldinger.push(nyMelding);
+
+        inpMening.value = " ";
+
+    }
+
+    meldinger.on("child_added", visMelding);
+
+    skjema.onsubmit = regNyMelding;
+
+</script>
+
+</body>
