@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fakturanummer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.css">
+    <style>
+
+        body {
+            padding: 10px;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        table {
+            margin-top: 40px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <form id="skjema">
+        <input type="text" id="inpBelop" required placeholder="Beløp" autocomplete="off">
+        <input type="text" id="inpTekst" required placeholder="Melding på faktura" autocomplete="off">
+        <button class="button" type="submit">Lag faktura</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Pris</th>
+                <th>Beskrivelse</th>
+            </tr>
+        </thead>
+        <tbody id="tb"></tbody>
+    </table>
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyB7DQh21uy3o6j1jHxAvWJExbtqS772nc8",
+            authDomain: "mytube-e54fc.firebaseapp.com",
+            databaseURL: "https://mytube-e54fc.firebaseio.com",
+            projectId: "mytube-e54fc",
+            storageBucket: "mytube-e54fc.appspot.com",
+            messagingSenderId: "161875891914"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+
+        var skjema = document.getElementById("skjema");
+        var inpBelop = document.getElementById("inpBelop");
+        var inpTekst = document.getElementById("inpTekst");
+        var tb = document.getElementById("tb");
+
+
+
+        var db = firebase.database();
+        var fnr = db.ref("fnr");
+        var fakturaer = db.ref("fakturaer");
+
+        function lagFaktura(belop, tekst) {
+
+            // Sjekker om det fins en faktura her
+            fnr.once("value", function(snap){
+
+                var nr = snap.val();
+                var nyttNummer;
+
+                if(nr != null) {
+                    nyttNummer = nr + 1;
+
+                } else {
+                    nyttNummer = 1;
+                }
+
+                fnr.set(nyttNummer);
+
+                fakturaer.push({
+                   nr: nyttNummer,
+                   belop: belop,
+                   tekst: tekst
+                });
+
+            });
+
+        }
+
+        function visFaktura(snap) {
+
+            var faktura = snap.val();
+
+            tb.innerHTML += `
+                <tr>
+                    <td>Faktura nr: ${faktura.nr}</td>
+                    <td>kr ${faktura.belop}</td>
+                    <td>${faktura.tekst}</td>
+                </tr>
+            `;
+
+        }
+
+        skjema.onsubmit = function(evt) {
+            evt.preventDefault();
+
+            var belop = Number(inpBelop.value);
+            var tekst = inpTekst.value;
+
+
+            lagFaktura(belop, tekst);
+            skjema.reset();
+            inpBelop.focus();
+
+        };
+
+        fakturaer.on("child_added", visFaktura);
+
+
+    </script>
+
+</body>
+</html>
