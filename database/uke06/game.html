@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>The Game</title>
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyC8nG0qKKT-mBzoc0Q3h-rlUZdD4D2dEco",
+            authDomain: "fruktbutikken.firebaseapp.com",
+            databaseURL: "https://fruktbutikken.firebaseio.com",
+            projectId: "fruktbutikken",
+            storageBucket: "fruktbutikken.appspot.com",
+            messagingSenderId: "44451318197"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+
+    <script type="text/javascript">
+        initApp = function() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    // User is signed in.
+                    var displayName = user.displayName;
+                    var email = user.email;
+                    var emailVerified = user.emailVerified;
+                    var photoURL = user.photoURL;
+                    var uid = user.uid;
+                    var phoneNumber = user.phoneNumber;
+                    var providerData = user.providerData;
+                    user.getIdToken().then(function(accessToken) {
+
+                        document.body.innerHTML = `<img src="${photoURL}">`;
+
+                    });
+                } else {
+                    // User is signed out.
+                    // Vi sender brukeren til en annen side
+
+                }
+            }, function(error) {
+                console.log(error);
+            });
+        };
+
+        window.addEventListener('load', function() {
+            initApp()
+        });
+    </script>
+</head>
+<body>
+
+
+
+</body>
+</html>

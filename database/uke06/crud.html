@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CRUD</title>
+</head>
+<body>
+
+    <main id="main"></main>
+
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyB7DQh21uy3o6j1jHxAvWJExbtqS772nc8",
+            authDomain: "mytube-e54fc.firebaseapp.com",
+            databaseURL: "https://mytube-e54fc.firebaseio.com",
+            projectId: "mytube-e54fc",
+            storageBucket: "mytube-e54fc.appspot.com",
+            messagingSenderId: "161875891914"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+        const main = document.getElementById("main");
+
+
+        const db = firebase.database();
+
+        const biler = db.ref("bilregister/biler");
+        const personer = db.ref("bilregister/personer");
+
+        // CREATE
+        const petter = personer.child("17028043564");
+        petter.set({
+            fornavn: "Petter",
+            etternavn: "Solberg"
+        });
+
+        // En annen person
+        const martin = personer.child("24039812345");
+        martin.set({
+            fornavn: "Martin",
+            etternavn: "Schancke"
+        });
+
+        // UPDATE
+        martin.update({
+           etternavn: "Schanche"
+        });
+
+        // REMOVE
+        petter.remove();
+
+        // READ
+
+        function visPerson(snap) {
+            const person = snap.val();
+            main.innerHTML += `<p>Ny person: ${person.fornavn}</p>`;
+        }
+
+        personer.on("child_added", visPerson);
+
+    </script>
+
+
+</body>
+</html>
