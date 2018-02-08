@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>The Game</title>
+    <style>
+
+
+        img {
+            width: 40px;
+            position: absolute;
+        }
+
+    </style>
 
 
     <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
@@ -34,7 +43,25 @@
                     var providerData = user.providerData;
                     user.getIdToken().then(function(accessToken) {
 
-                        document.body.innerHTML = `<img src="${photoURL}">`;
+
+                        const db = firebase.database();
+                        const bilder = db.ref("game/bilder");
+
+                        function lagreBilde(klikk) {
+                            bilder.push({
+                                url: photoURL,
+                                x: klikk.clientX,
+                                y: klikk.clientY
+                            });
+                        }
+
+                        function visBilde(snap) {
+                            const bilde = snap.val();
+                            document.body.innerHTML += `<img src="${bilde.url}" style="left: ${bilde.x}px; top: ${bilde.y}px;">`;
+                        }
+
+                        document.onclick = lagreBilde;
+                        bilder.on("child_added", visBilde);
 
                     });
                 } else {
