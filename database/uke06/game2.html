@@ -3,12 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>The Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-float.min.css">
     <style>
 
+        body {
+            max-width: 800px;
+            margin: auto;
+            padding: 10px;
+        }
 
         img {
-            width: 40px;
-            position: absolute;
+            height: 2rem;
+        }
+
+        #skrivere > article {
+            display: grid;
+            align-items: center;
+            grid-gap: 10px;
+            grid-template-columns: auto 1fr;
         }
 
     </style>
@@ -44,45 +56,52 @@
                     user.getIdToken().then(function(accessToken) {
 
 
+                        const inpTekst = document.getElementById("inpTekst");
+                        const skrivere = document.getElementById("skrivere");
+
+
                         const db = firebase.database();
-                        const bilder = db.ref("game/bilder");
+                        const personer = db.ref("game/personer");
 
                         let timer;
 
                         function slett() {
-                            const bilde = bilder.child(uid);
-                            bilde.remove();
+                            const person = personer.child(uid);
+                            person.remove();
 
                         }
 
-                        function fjernBilde(snap) {
+                        function fjernPerson(snap) {
                             const key = snap.key;
                             const element = document.getElementById(key);
 
-                            document.body.removeChild(element);
+                            skrivere.removeChild(element);
                         }
 
-                        function lagreBilde(klikk) {
+                        function lagrePersonSomSkriver() {
 
-                            const bilde = bilder.child(uid);
-                            bilde.set({
+                            const person = personer.child(uid);
+                            person.set({
                                 url: photoURL,
-                                x: klikk.clientX,
-                                y: klikk.clientY
+                                name: displayName
                             });
 
                             timer = setTimeout(slett, 2000);
                         }
 
-                        function visBilde(snap) {
-                            const bilde = snap.val();
+                        function visPerson(snap) {
+                            const person = snap.val();
                             const key = snap.key;
-                            document.body.innerHTML += `<img id="${key}" src="${bilde.url}" style="left: ${bilde.x}px; top: ${bilde.y}px;">`;
+                            skrivere.innerHTML += `
+                                <article id="${key}">
+                                    <img src="${person.url}">
+                                    <label>${person.name} is typing ...</label>
+                                </article>`;
                         }
 
-                        document.onclick = lagreBilde;
-                        bilder.on("child_added", visBilde);
-                        bilder.on("child_removed", fjernBilde);
+                        inpTekst.oninput = lagrePersonSomSkriver;
+                        personer.on("child_added", visPerson);
+                        personer.on("child_removed", fjernPerson);
 
                     });
                 } else {
@@ -102,6 +121,10 @@
 </head>
 <body>
 
+    <div>
+        <input type="text" id="inpTekst" placeholder="Si noe" autocomplete="off" autofocus>
+    </div>
+    <div id="skrivere"></div>
 
 
 </body>

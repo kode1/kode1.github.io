@@ -47,6 +47,8 @@
                         const db = firebase.database();
                         const bilder = db.ref("game/bilder");
 
+                        bilder.remove();
+
                         function lagreBilde(klikk) {
                             bilder.push({
                                 url: photoURL,
