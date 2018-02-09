@@ -24,6 +24,26 @@
             grid-template-columns: auto 1fr;
         }
 
+        @keyframes skriver {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-8px);
+            }
+        }
+
+        span .b {
+            display: inline-block;
+            animation: skriver 0.6s infinite alternate;
+        }
+        span .b:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        span .b:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
     </style>
 
 
@@ -97,7 +117,7 @@
                             skrivere.innerHTML += `
                                 <article id="${key}">
                                     <img src="${person.url}">
-                                    <label>${person.name} is typing ...</label>
+                                    <label>${person.name} is typing <span><label class="b">.</label><label class="b">.</label><label class="b">.</label></span></label>
                                 </article>`;
                         }
 
@@ -126,7 +146,10 @@
     <div>
         <input type="text" id="inpTekst" placeholder="Si noe" autocomplete="off" autofocus>
     </div>
-    <div id="skrivere"></div>
+    <div id="skrivere">
+
+
+    </div>
 
 
 </body>
