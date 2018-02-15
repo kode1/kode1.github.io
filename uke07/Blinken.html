@@ -39,6 +39,7 @@
         <div></div>
         <div></div>
     </div>
+    <button id="btnSlett">SLETT ALLE SKUDD</button>
 
 
     <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
@@ -57,6 +58,9 @@
 
 
     <script>
+        const skyteskive = document.getElementById("skyteskive");
+        const btnSlett = document.getElementById("btnSlett");
+
 
         const db = firebase.database();
         const skuddene = db.ref("skuddene");
@@ -78,7 +82,15 @@
             `;
         }
 
-        document.onclick = lagreSkudd;
+        function sletteSkudd() {
+            console.log("Nå har du klikket");
+            skuddene.remove();
+        }
+
+
+
+        skyteskive.onclick = lagreSkudd;
+        btnSlett.onclick = sletteSkudd;
         skuddene.on("child_added", visSkudd);
 
     </script>

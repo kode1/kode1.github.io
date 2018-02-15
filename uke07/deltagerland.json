@@ -1,0 +1,23 @@
+{
+  "GER" : {
+    "name" : "Tyskland",
+    "gold" : 8,
+    "silver" : 3,
+    "bronze" : 5,
+    "total" : 16
+  },
+  "NOR" : {
+    "name" : "Norge",
+    "gold" : 5,
+    "silver" : 7,
+    "bronze" : 4,
+    "total" : 16
+  },
+  "NED" : {
+    "name" : "Nederland",
+    "gold" : 5,
+    "silver" : 7,
+    "bronze" : 4,
+    "total" : 16
+  }
+}
