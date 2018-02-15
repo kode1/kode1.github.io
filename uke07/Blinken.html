@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hjelp for skiskyttere</title>
+    <style>
+
+        #skyteskive {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            width: 700px;
+            border: 1px solid #eee;
+        }
+
+        #skyteskive > div {
+            width: 120px;
+            height: 120px;
+            background-color: black;
+            border-radius: 50%;
+        }
+
+        .skudd {
+            width: 20px;
+            height: 20px;
+            background-color: #509bf5;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="skyteskive">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyC8nG0qKKT-mBzoc0Q3h-rlUZdD4D2dEco",
+            authDomain: "fruktbutikken.firebaseapp.com",
+            databaseURL: "https://fruktbutikken.firebaseio.com",
+            projectId: "fruktbutikken",
+            storageBucket: "fruktbutikken.appspot.com",
+            messagingSenderId: "44451318197"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+
+    <script>
+
+        const db = firebase.database();
+        const skuddene = db.ref("skuddene");
+
+        function lagreSkudd(klikk) {
+            skuddene.push({
+                x: klikk.clientX,
+                y: klikk.clientY
+            });
+        }
+
+        function visSkudd(snap) {
+            let skudd = snap.val();
+            let x = skudd.x - 10;
+            let y = skudd.y -10;
+
+            document.body.innerHTML += `
+                <div class="skudd" style="left: ${x}px; top: ${y}px;"></div>
+            `;
+        }
+
+        document.onclick = lagreSkudd;
+        skuddene.on("child_added", visSkudd);
+
+    </script>
+
+
+</body>
+</html>
