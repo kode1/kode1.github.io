@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modern Web Design</title>
+    <style>
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            font-family: sans-serif;
+        }
+
+        header nav {
+            display: grid;
+            grid-auto-flow: column;
+            align-items: center;
+            justify-items: center;
+        }
+
+        header nav a {
+            padding: 15px 20px;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #333;
+        }
+
+        header nav a.active {
+            background-color: #D60000;
+            color: white;
+        }
+
+        body > header {
+            background-color: white;
+            filter: drop-shadow(5px 5px 5px black);
+        }
+
+        main {
+            color: white;
+            background-image: url("city.png");
+            background-size: cover;
+            background-position: center bottom;
+            display: grid;
+            grid-template-rows: 1fr 80px;
+            justify-items: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        main a {
+            padding: 10px 30px;
+            background-color: #D60000;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        footer {
+            display: grid;
+            grid-gap: 20px;
+            padding: 20px;
+            grid-auto-flow: column;
+            text-align: center;
+        }
+
+        footer article {
+            margin-top: 15px;
+        }
+
+        footer img {
+            width: 80px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#" class="active">Website</a>
+            <a href="#">Home</a>
+            <a href="#">Learning</a>
+            <a href="#">Master</a>
+            <a href="#">Bachelor</a>
+        </nav>
+    </header>
+
+    <main>
+        <header>
+            <h1>Modern Web Design</h1>
+            <h2>Fresh & Responsive</h2>
+        </header>
+        <nav>
+            <a href="#">Join</a>
+        </nav>
+    </main>
+
+    <footer>
+        <article>
+            <img src="klokke.png">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolorem ea eum id minima minus nemo repudiandae tempora totam veniam. Culpa dolorem magnam mollitia nihil nobis sint, totam velit voluptatem!</p>
+        </article>
+        <article>
+            <img src="foto.png">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolorem ea eum id minima minus nemo repudiandae tempora totam veniam. Culpa dolorem magnam mollitia nihil nobis sint, totam velit voluptatem!</p>
+        </article>
+        <article>
+            <img src="blyant.png">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolorem ea eum id minima minus nemo repudiandae tempora totam veniam. Culpa dolorem magnam mollitia nihil nobis sint, totam velit voluptatem!</p>
+        </article>
+    </footer>
+
+</body>
+</html>
