@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bestill kaffe - Beste kvalitet</title>
+    <style>
+
+        body {
+            background-color: #eee;
+            font-family: sans-serif;
+            font-size: 16px;
+        }
+        main {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-gap: 10px;
+        }
+
+        main > article {
+            text-align: center;
+            padding: 10px;
+            background-color: white;
+        }
+
+        main a {
+            color: #333;
+            text-decoration: none;
+        }
+        main a p {
+            min-height: 2rem;
+        }
+
+        main img {
+            width: 100%;
+        }
+
+        @media (max-width: 1000px) {
+            main {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+        @media (max-width: 850px) {
+            main {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (max-width: 700px) {
+            main {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 550px) {
+            main {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <main id="main"></main>
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        const config = {
+            apiKey: "AIzaSyCpxhjxHoGAhWsgxREnlyF6fEL34On6384",
+            authDomain: "coffe-shop-1f186.firebaseapp.com",
+            databaseURL: "https://coffe-shop-1f186.firebaseio.com",
+            projectId: "coffe-shop-1f186",
+            storageBucket: "coffe-shop-1f186.appspot.com",
+            messagingSenderId: "592094495152"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+        const db = firebase.database();
+        const produkter = db.ref("produkter/kaffe");
+
+        // HTML-Elementer
+        const main = document.getElementById("main");
+
+        function visProdukt(snap) {
+            const key = snap.key;
+            const produkt = snap.val();
+
+            main.innerHTML += `
+                <article>
+                    <a href="kaffeinfo.html?id=${key}">
+                        <img src="${produkt.bilde}">
+                        <p>${produkt.navn}</p>
+                    </a>
+                    <button>Kjøp for kr. ${produkt.pris}</button>
+                </article>
+
+            `;
+        }
+
+        produkter.on("child_added", visProdukt);
+
+    </script>
+
+</body>
+</html>

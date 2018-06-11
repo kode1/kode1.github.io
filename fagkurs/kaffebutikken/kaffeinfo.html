@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="title">Kaffeinfo</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        main article {
+            display: grid;
+            grid-template-columns: 1fr 5fr;
+            grid-gap: 20px;
+        }
+        main article img {
+            width: 100%;
+        }
+
+        #secAndre {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 10px;
+        }
+        #secAndre article {
+            box-shadow: 0 0 2px black;
+            text-align: center;
+            padding: 10px;
+        }
+        #secAndre img {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <main id="main"></main>
+    <aside>
+        <h1 id="hdnProdukt"></h1>
+        <section id="secAndre"></section>
+    </aside>
+
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        const config = {
+            apiKey: "AIzaSyCpxhjxHoGAhWsgxREnlyF6fEL34On6384",
+            authDomain: "coffe-shop-1f186.firebaseapp.com",
+            databaseURL: "https://coffe-shop-1f186.firebaseio.com",
+            projectId: "coffe-shop-1f186",
+            storageBucket: "coffe-shop-1f186.appspot.com",
+            messagingSenderId: "592094495152"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+        const db = firebase.database();
+        const produkter = db.ref("produkter/kaffe");
+
+        // Finner id til produktet fra urlen
+        const url_string = document.location.href;
+        const url = new URL(url_string);
+        const id = url.searchParams.get("id");
+
+        const valgt_kaffe = produkter.child(id);
+
+        // HTML-Elementer
+        const main = document.getElementById("main");
+        const hdnProdukt = document.getElementById("hdnProdukt");
+        const secAndre = document.getElementById("secAndre");
+
+
+        function visKaffe(snap) {
+            const key = snap.key;
+            const produkt = snap.val();
+
+            if(key === id) return;
+
+            secAndre.innerHTML += `
+                <article>
+                    <a href="kaffeinfo.html?id=${key}">
+                        <img src="${produkt.bilde}">
+                        <p>${produkt.navn}</p>
+                    </a>
+                    <button>Kjøp for kr. ${produkt.pris}</button>
+                </article>
+
+            `;
+        }
+
+        function visProdukt(snap) {
+            const key = snap.key;
+            const produkt = snap.val();
+
+            main.innerHTML += `
+                <article>
+                    <img src="${produkt.bilde}">
+                    <section>
+                        <p>${produkt.navn}</p>
+                        <p>${produkt.tekst}</p>
+                        <p>Verdensdel: ${produkt.verdensdel}</p>
+                        <button>Kjøp for kr. ${produkt.pris}</button>
+                    </section>
+                </article>
+            `;
+
+            // Viser andre produkter fra samme verdensdel
+            hdnProdukt.innerHTML = `Andre produkter fra ${produkt.verdensdel}`;
+
+            produkter
+                .orderByChild("verdensdel")
+                .equalTo(produkt.verdensdel)
+                .on("child_added", visKaffe);
+
+        }
+
+        valgt_kaffe.on("value", visProdukt);
+
+
+
+    </script>
+
+</body>
+</html>
