@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The amazing Chat!</title>
+    <style>
+
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            color: white;
+        }
+
+        header {
+            background-color: darkorange;
+            text-align: center;
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            padding: 10px;
+        }
+
+        header img {
+            width: 80px;
+            border-radius: 50%;
+        }
+
+        main {
+            background-color: steelblue;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-gap: 15px;
+            padding: 10px;
+            text-align: center;
+        }
+        main img {
+            width: 100%;
+        }
+
+        .offline {
+            border: 3px solid transparent;
+        }
+
+        .online {
+            border: 3px solid orange;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <h1>Velkommen til SuperChat</h1>
+    </header>
+    <h1 style="color: steelblue">VENNENE MINE</h1>
+    <main id="main"></main>
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        const config = {
+            apiKey: "AIzaSyCpxhjxHoGAhWsgxREnlyF6fEL34On6384",
+            authDomain: "coffe-shop-1f186.firebaseapp.com",
+            databaseURL: "https://coffe-shop-1f186.firebaseio.com",
+            projectId: "coffe-shop-1f186",
+            storageBucket: "coffe-shop-1f186.appspot.com",
+            messagingSenderId: "592094495152"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+
+        const db = firebase.database();
+        const users = db.ref("users");
+
+        const header = document.getElementById("header");
+        const main = document.getElementById("main");
+
+
+        let user = null;
+
+        function addUser() {
+            const userRef = users.child(user.uid);
+            userRef.set({
+                displayName: user.displayName,
+                photoURL: user.photoURL,
+                lastLogin: firebase.database.ServerValue.TIMESTAMP,
+                online: true
+            });
+        }
+
+        function loggUt() {
+            firebase.auth().signOut()
+                .then(function() {
+                    // Sign-out successful.
+                    const userRef = users.child(user.uid);
+                    userRef.update({
+                        online: false
+                    });
+
+                    // main.innerHTML = "";
+
+
+                    document.location.href = "index.html";
+                })
+                .catch(function(error) {
+                    // An error happened
+                    console.log("Noe gikk veldig galt");
+                });
+        }
+
+        function showUser() {
+            let name = user.displayName;
+            let image = user.photoURL;
+
+            header.innerHTML += `
+                <img src=${image}>
+                <p>${name}</p>
+                <button onclick="loggUt()">Logg ut</button>
+            `;
+        }
+
+        function showFriends(data) {
+            const key = data.key;
+            const friend = data.val();
+            let klasse = "offline";
+            if(friend.online) {
+                klasse = "online";
+            }
+
+
+            main.innerHTML += `
+                <article>
+                    <img id="${key}" src="${friend.photoURL}" class="${klasse}">
+                    <p>${friend.displayName}</p>
+                </article>
+            `;
+
+        }
+
+
+        function initApp() {
+            firebase.auth().onAuthStateChanged(function(logged_in_user) {
+                if (logged_in_user) {
+                    user = logged_in_user;
+                    showUser();
+                    addUser();
+                } else {
+                    // User is signed out.
+                    document.location.href="index.html";
+                }
+            }, function(error) {
+                console.log(error);
+            });
+        }
+
+        window.onload = initApp;
+
+        users.on("child_added", showFriends);
+
+        function alterUser(snap) {
+            console.log("ALTER");
+
+            const usr = snap.val();
+            const bilde = document.getElementById(`${snap.key}`);
+
+            let klasse = "offline";
+            if(usr.online) {
+                klasse = "online";
+            }
+            bilde.className = klasse;
+        }
+
+        users.on("child_changed", alterUser);
+
+
+    </script>
+</body>
+</html>
