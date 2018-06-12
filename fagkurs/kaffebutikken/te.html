@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vårt utvalgt av utsøkt te</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: sans-serif;
+            background-color: #eee;
+        }
+        main {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-gap: 15px;
+        }
+        main img {
+            width: 100%;
+        }
+        main article {
+            background-color: white;
+            padding: 10px;
+        }
+        main a {
+            text-decoration: none;
+            color: indigo;
+        }
+    </style>
+</head>
+<body>
+
+    <main id="main"></main>
+
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCpxhjxHoGAhWsgxREnlyF6fEL34On6384",
+            authDomain: "coffe-shop-1f186.firebaseapp.com",
+            databaseURL: "https://coffe-shop-1f186.firebaseio.com",
+            projectId: "coffe-shop-1f186",
+            storageBucket: "coffe-shop-1f186.appspot.com",
+            messagingSenderId: "592094495152"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+
+        const main = document.getElementById("main");
+
+
+        const db = firebase.database();
+        const teer = db.ref("produkter/te");
+
+        const visTe = (data) => {
+            const key = data.key;
+            const te = data.val();
+
+            main.innerHTML += `
+                <article>
+                    <a href="teinfo.html?id=${key}">
+                        <img src="${te.bilde}">
+                        <p>${te.navn}</p>
+                    </a>
+                    <button>Kjøp for kr. ${te.pris}</button>
+                </article>
+            `;
+
+        };
+
+        teer.on("child_added", visTe);
+
+    </script>
+
+</body>
+</html>

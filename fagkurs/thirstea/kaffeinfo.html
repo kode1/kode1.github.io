@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detaljer om kaffe</title>
+    <style>
+        img {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <main id="main"></main>
+    <h1>Se andre produkter</h1>
+    <aside id="aside"></aside>
+
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyD_IKDmkFbLaRUSkmfEcAVjbYe3b6dsWa8",
+            authDomain: "thirstea-5492a.firebaseapp.com",
+            databaseURL: "https://thirstea-5492a.firebaseio.com",
+            projectId: "thirstea-5492a",
+            storageBucket: "thirstea-5492a.appspot.com",
+            messagingSenderId: "464225309927"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+
+        const main = document.getElementById("main");
+        const aside = document.getElementById("aside");
+
+
+        const db = firebase.database();
+        const kaffer = db.ref("produkter/kaffe");
+
+        const url_string = document.location.href;
+        const url = new URL(url_string);
+        const id = url.searchParams.get("id");
+
+        function visProdukt(data) {
+            const key = data.key;
+            const kaffe = data.val();
+
+            aside.innerHTML += `
+                <article>
+                    <a href="kaffeinfo.html?id=${key}">
+                        <img src="${kaffe.bilde}">
+                        <p>${kaffe.navn}</p>
+                    </a>
+                </article>
+            `;
+
+        }
+
+        function visKaffe(data) {
+            const key = data.key;
+            const kaffe = data.val();
+
+            main.innerHTML = `
+                <article>
+                    <a href="kaffeinfo.html?id=${key}">
+                        <img src="${kaffe.bilde}">
+                        <p>${kaffe.navn}</p>
+                    </a>
+                </article>
+            `;
+
+            kaffer
+                .orderByChild("verdensdel")
+                .equalTo(kaffe.verdensdel)
+                .on("child_added", visProdukt);
+
+        }
+
+
+        const valgtKaffe = kaffer.child(id);
+
+        valgtKaffe.on("value", visKaffe);
+
+
+    </script>
+
+</body>
+</html>

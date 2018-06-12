@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kaffe</title>
+    <style>
+
+        body {
+            background-color: #eee;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-gap: 15px;
+
+        }
+
+        main article {
+            background-color: white;
+            padding: 10px;
+        }
+
+        main img {
+            width: 100%;
+        }
+
+        @media (max-width: 1000px) {
+            main {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            main {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <main id="main">
+
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyD_IKDmkFbLaRUSkmfEcAVjbYe3b6dsWa8",
+            authDomain: "thirstea-5492a.firebaseapp.com",
+            databaseURL: "https://thirstea-5492a.firebaseio.com",
+            projectId: "thirstea-5492a",
+            storageBucket: "thirstea-5492a.appspot.com",
+            messagingSenderId: "464225309927"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+
+        //HTML-elementer
+        const main = document.getElementById("main");
+
+
+        const db = firebase.database();
+        const kaffer = db.ref("produkter/kaffe");
+
+        function visProdukt(data) {
+            const key = data.key;
+            const kaffe = data.val();
+
+            main.innerHTML += `
+                <article>
+                    <a href="kaffeinfo.html?id=${key}">
+                        <img src="${kaffe.bilde}">
+                        <p>${kaffe.navn}</p>
+                    </a>
+                </article>
+            `;
+        }
+
+        kaffer.on("child_added", visProdukt);
+
+    </script>
+
+
+</body>
+</html>

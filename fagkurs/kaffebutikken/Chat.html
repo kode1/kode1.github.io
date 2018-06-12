@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chat</title>
+</head>
+<body>
+
+    <form id="skjema">
+        <input type="text" id="inpMelding">
+        <button type="submit">OK</button>
+    </form>
+    <main id="main"></main>
+
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyD_IKDmkFbLaRUSkmfEcAVjbYe3b6dsWa8",
+            authDomain: "thirstea-5492a.firebaseapp.com",
+            databaseURL: "https://thirstea-5492a.firebaseio.com",
+            projectId: "thirstea-5492a",
+            storageBucket: "thirstea-5492a.appspot.com",
+            messagingSenderId: "464225309927"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+
+        const db = firebase.database();
+        const meldinger = db.ref("meldinger");
+
+        const main = document.getElementById("main");
+        const skjema = document.getElementById("skjema");
+        const inpMelding = document.getElementById("inpMelding");
+
+        function lagreMelding(evt) {
+            evt.preventDefault();
+
+            meldinger.push({
+                tekst: inpMelding.value
+            });
+        }
+
+        function visMelding(data) {
+            const melding = data.val();
+            main.innerHTML += `<p>${melding.tekst}</p>`;
+        }
+
+        skjema.onsubmit = lagreMelding;
+        meldinger.on("child_added", visMelding);
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>
