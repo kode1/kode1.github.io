@@ -104,17 +104,16 @@
                         online: false
                     });
 
-                    // main.innerHTML = "";
-
-
+                    // Går til innlogginssiden
                     document.location.href = "index.html";
                 })
                 .catch(function(error) {
-                    // An error happened
+                    // Noe har gått galt. Vi gjør ikke så mye ut av det nå
                     console.log("Noe gikk veldig galt");
                 });
         }
 
+        // Viser bilde og navn på deg selv
         function showUser() {
             let name = user.displayName;
             let image = user.photoURL;
@@ -133,7 +132,6 @@
             if(friend.online) {
                 klasse = "online";
             }
-
 
             main.innerHTML += `
                 <article>
