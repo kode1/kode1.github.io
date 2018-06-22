@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload images to Cloud Storage with Firebase</title>
+</head>
+<body>
+
+
+    <input type="file" id="inpFile">
+
+    <div id="info"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCpxhjxHoGAhWsgxREnlyF6fEL34On6384",
+            authDomain: "coffe-shop-1f186.firebaseapp.com",
+            databaseURL: "https://coffe-shop-1f186.firebaseio.com",
+            projectId: "coffe-shop-1f186",
+            storageBucket: "coffe-shop-1f186.appspot.com",
+            messagingSenderId: "592094495152"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script>
+        var inpFile = document.getElementById("inpFile");
+        var info = document.getElementById("info");
+
+        var storage = firebase.storage();
+        var storageRef = storage.ref("bloggen");
+
+        function lagreBilde() {
+
+            var file = inpFile.files[0];
+
+            // Upload file and metadata to the object 'images/mountains.jpg'
+            var uploadTask = storageRef.child('images/' + new Date()).put(file);
+
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function(snapshot) {
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                }, function(error) {
+
+                    // A full list of error codes is available at
+                    // https://firebase.google.com/docs/storage/web/handle-errors
+                    switch (error.code) {
+                        case 'storage/unauthorized':
+                            // Bruker har ikke tilgang til å laste opp bilder
+                            break;
+
+                        case 'storage/canceled':
+                            // Opplasting avbrutt av bruker
+                            break;
+
+                        case 'storage/unknown':
+                            // Ukjent feil
+                            break;
+                    }
+                }, function() {
+                    // Upload completed successfully, now we can get the download URL
+                    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                        info.innerHTML = `<a href="${downloadURL}">Bildet ditt er nå her</a>`;
+                    });
+                });
+
+        }
+
+        inpFile.onchange = lagreBilde;
+
+
+
+
+    </script>
+
+</body>
+</html>
